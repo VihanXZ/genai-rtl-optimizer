@@ -1,0 +1,14 @@
+read_verilog -sv rtl/testcases/test_counter.sv
+hierarchy -top counter
+
+read_liberty -lib libs/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib
+
+synth -top counter
+
+dfflibmap -liberty libs/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty libs/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib
+
+clean
+stat
+
+write_verilog -noattr synthesis/netlists/test_counter_sky130.v

@@ -1,0 +1,7 @@
+{
+  "$schema": "timing_report_v1",
+  "module_name": "test_counter",
+  "wns_ns": 9.2,
+  "num_violations": 0,
+  "timestamp": "2026-08-21T07:41:35.782923+00:00"
+}
