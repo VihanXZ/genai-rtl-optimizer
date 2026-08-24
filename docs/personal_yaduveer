@@ -1,0 +1,135 @@
+# Project Architecture & Flowmap
+
+This document visualizes the complete closed-loop AI optimization system your team is building for the Astera Labs Hackathon.
+
+## System Flowchart
+
+```mermaid
+flowchart TD
+    %% Styles
+    classDef eda fill:#e1f5fe,stroke:#0288d1,stroke-width:2px,color:black;
+    classDef ai fill:#fce4ec,stroke:#c2185b,stroke-width:2px,color:black;
+    classDef formal fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:black;
+    classDef data fill:#ffffff,stroke:#9e9e9e,stroke-dasharray: 5 5,color:black;
+
+    %% Nodes
+    Original([Original RTL Benchmark]):::data
+    
+    subgraph "STEP 1: EDA Measurement (You - Person 1)"
+        Synth[Yosys Synthesis]:::eda
+        Netlist[/Gate-Level Netlist/]:::data
+        STA[OpenSTA Timing Analysis]:::eda
+        TimingText[/Timing Report .rpt/]:::data
+        Parser[Python Parser]:::eda
+        JSON[/timing_report.json/]:::data
+        
+        Original --> Synth --> Netlist --> STA --> TimingText --> Parser --> JSON
+    end
+
+    subgraph "STEP 2: AI Generation (Person 2)"
+        Engine[Python Orchestrator]:::ai
+        LLM{LLM / GenAI API}:::ai
+        Candidates[/Candidate RTLs .sv/]:::data
+        
+        JSON --> Engine --> LLM --> Candidates
+    end
+
+    subgraph "STEP 3: Formal Verification (Person 3)"
+        Equiv[SymbiYosys / EQY]:::formal
+        Check{Are they functionally exact?}:::formal
+        Reject([Reject & Log Failure]):::data
+        
+        Candidates --> Equiv
+        Original -. "Reference Design" .-> Equiv
+        Equiv --> Check
+        Check -- No --> Reject
+    end
+
+    subgraph "STEP 4: Evaluation (All)"
+        ReSynth[Re-Synthesis]:::eda
+        ReSTA[Re-STA]:::eda
+        Eval{Did timing improve?}:::ai
+        Accept([Accept Candidate!]):::data
+        
+        Check -- Yes --> ReSynth --> ReSTA --> Eval
+        Eval -- No --> Reject
+        Eval -- Yes --> Accept
+        Accept -. "Update Baseline" .-> Original
+    end
+
+    %% Legend
+    classDef default font-family:sans-serif;
+```
+
+---
+
+## Step-by-Step Breakdown
+
+### Step 1: EDA Measurement (Your Domain)
+*   **Input:** The massive 50K-cell SystemVerilog benchmark design.
+*   **Process:** Yosys maps the code to physical gates (Sky130). OpenSTA measures the physical delay of the wires to find "critical paths" (the slowest parts of the chip).
+*   **Output:** The `timing_report.json`. This tells the AI *exactly* what lines of code are failing and by how many nanoseconds.
+
+### Step 2: AI Generation (Person 2)
+*   **Input:** Your `timing_report.json`.
+*   **Process:** A Python script packages the JSON data into a clever prompt. It asks an LLM (like GPT-4 or Claude) to apply optimization strategies (like pipelining or rearranging logic gates) to fix the specific failing paths.
+*   **Output:** Multiple mutated `candidate.sv` files. *The AI assumes these fixes work, but we do not trust the AI yet.*
+
+### Step 3: Formal Verification (Person 3)
+*   **Input:** The original RTL + the AI's Candidate RTL.
+*   **Process:** SymbiYosys/EQY mathematically proves whether the AI's changes altered the behavior of the chip. (e.g., If the AI broke a counter while trying to make it faster).
+*   **Output:** If the math proves they are not 100% identical in behavior, the candidate is instantly rejected. **This step is mandatory—it ensures the AI never introduces bugs.**
+
+### Step 4: Evaluation (The Loop)
+*   **Input:** A mathematically safe candidate RTL.
+*   **Process:** We run your exact Yosys and OpenSTA flow (from Step 1) on the new candidate to see if the AI actually made it faster.
+*   **Output:** If the timing (Worst Negative Slack) is better than the original, we accept it as the new baseline! We then loop the entire process again until the design meets all timing constraints.
+
+
+
+
+
+
+
+Here is a detailed summary of everything you have accomplished so far. You can copy and paste this directly into your `docs/personal_yaduveer` file!
+
+***
+
+# Person 1 (EDA / RTL / Timing) - Progress & Learning Log
+
+## 1. Overall Goal
+My responsibility in the Astera Labs Hackathon is to build the **Baseline EDA (Electronic Design Automation) Flow**. The GenAI engine (built by Person 2) needs to know exactly how good or bad a hardware design is in order to optimize it. My job is to take SystemVerilog RTL, synthesize it into physical gates, measure its timing/speed, and pass that data to the AI.
+
+## 2. Environment Setup
+Since hardware design tools are built for Linux, I configured my Windows machine to run **WSL2 (Windows Subsystem for Linux) with Ubuntu 24.04**. 
+- I use **VS Code** attached to WSL, allowing me to edit files in Windows while running terminals in Linux.
+- I set up a **Python Virtual Environment (`.venv`)** to safely isolate our project's Python packages from the system.
+
+## 3. The EDA Toolchain
+I successfully installed and tested three critical pieces of the open-source silicon stack:
+
+1. **Sky130 PDK Liberty File (`.lib`)**
+   - *What it is:* A giant dictionary created by the SkyWater foundry.
+   - *What it does:* It defines the physical characteristics (area, power, and nanosecond delay) of every single standard logic gate (AND, OR, Flip-Flops) at a specific voltage (1.8V) and temperature (25°C). The tools need this to do real-world math.
+
+2. **Yosys**
+   - *What it is:* An open-source RTL synthesis tool.
+   - *What it does:* It reads human-readable SystemVerilog code and compiles/maps it into a "gate-level netlist"—a massive text file consisting entirely of the physical Sky130 logic gates connected by wires.
+
+3. **OpenSTA (Static Timing Analysis)**
+   - *What it is:* An open-source timing engine.
+   - *What it does:* It reads the Yosys netlist and the Sky130 Liberty file. It traces every single electrical path from flip-flop to flip-flop and calculates if the electrical signal will arrive in time before the next clock pulse. 
+
+## 4. The "Test Counter" Baseline Flow
+To prove the toolchain works before we tackle the massive 50,000-cell benchmark, I built a miniature end-to-end flow:
+- **The RTL:** Created a simple `test_counter.sv`.
+- **Synthesis:** Ran Yosys to convert the counter into a Sky130 netlist.
+- **Constraints:** Wrote `.sdc` (Synopsys Design Constraints) files to tell OpenSTA how fast the clock is ticking.
+- **Analysis:** Ran OpenSTA, which successfully produced a text report (`test_counter_timing.rpt`) showing the delay and slack (timing pass/fail margin) of the counter.
+
+## 5. The GenAI Interface (Python Parser)
+**The Problem:** The LLM (GenAI) cannot reliably read a messy, human-readable OpenSTA text report. 
+**The Solution:** I wrote a Python script (`optimizer/parser.py`) that uses Regular Expressions (Regex) to scan the OpenSTA text report, extract the **Worst Negative Slack (WNS)**, and output a clean, structured `timing_report.json` file.
+**Result:** This JSON file acts as the official API/Handshake between my EDA flow and Person 2's AI engine.
+
+***
