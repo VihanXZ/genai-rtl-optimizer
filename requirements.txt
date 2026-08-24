@@ -1,0 +1,17 @@
+# Dashboard
+streamlit>=1.35
+
+# LLM client (Person 2 will pin to whichever provider SDK they use)
+anthropic>=0.34
+openai>=1.30
+
+# Data / schema validation
+jsonschema>=4.22
+pydantic>=2.7
+
+# Testing
+pytest>=8.2
+
+# Utilities
+python-dotenv>=1.0
+pandas>=2.2
