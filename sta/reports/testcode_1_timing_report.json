@@ -1,0 +1,252 @@
+{
+  "$schema": "timing_report_v1",
+  "module_name": "generic_module",
+  "wns_ns": -7.47,
+  "num_violations": 1,
+  "critical_paths": [
+    {
+      "startpoint": "_9513_",
+      "endpoint": "_9446_",
+      "clock_domain": "clk",
+      "slack_ns": -7.47,
+      "stages": [
+        {
+          "delay_ns": 0.0,
+          "arrival_ns": 0.0,
+          "pin": "_9513_/CLK",
+          "cell": "sky130_fd_sc_hd__dfrtp_1"
+        },
+        {
+          "delay_ns": 0.9,
+          "arrival_ns": 0.9,
+          "pin": "_9513_/Q",
+          "cell": "sky130_fd_sc_hd__dfrtp_1"
+        },
+        {
+          "delay_ns": 0.25,
+          "arrival_ns": 1.14,
+          "pin": "_4786_/X",
+          "cell": "sky130_fd_sc_hd__and2_0"
+        },
+        {
+          "delay_ns": 0.43,
+          "arrival_ns": 1.58,
+          "pin": "_4789_/X",
+          "cell": "sky130_fd_sc_hd__xor3_1"
+        },
+        {
+          "delay_ns": 0.39,
+          "arrival_ns": 1.97,
+          "pin": "_4805_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.36,
+          "arrival_ns": 2.34,
+          "pin": "_4818_/X",
+          "cell": "sky130_fd_sc_hd__xnor3_1"
+        },
+        {
+          "delay_ns": 0.24,
+          "arrival_ns": 2.58,
+          "pin": "_4820_/Y",
+          "cell": "sky130_fd_sc_hd__xnor2_1"
+        },
+        {
+          "delay_ns": 0.18,
+          "arrival_ns": 2.75,
+          "pin": "_4822_/X",
+          "cell": "sky130_fd_sc_hd__lpflow_inputiso1p_1"
+        },
+        {
+          "delay_ns": 0.43,
+          "arrival_ns": 3.18,
+          "pin": "_4905_/X",
+          "cell": "sky130_fd_sc_hd__xor3_1"
+        },
+        {
+          "delay_ns": 0.39,
+          "arrival_ns": 3.58,
+          "pin": "_4917_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.39,
+          "arrival_ns": 3.96,
+          "pin": "_4970_/X",
+          "cell": "sky130_fd_sc_hd__xor3_1"
+        },
+        {
+          "delay_ns": 0.17,
+          "arrival_ns": 4.13,
+          "pin": "_4972_/X",
+          "cell": "sky130_fd_sc_hd__xor2_1"
+        },
+        {
+          "delay_ns": 0.21,
+          "arrival_ns": 4.35,
+          "pin": "_4974_/Y",
+          "cell": "sky130_fd_sc_hd__xnor2_1"
+        },
+        {
+          "delay_ns": 0.25,
+          "arrival_ns": 4.6,
+          "pin": "_4977_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.19,
+          "arrival_ns": 4.79,
+          "pin": "_5047_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.18,
+          "arrival_ns": 4.97,
+          "pin": "_5128_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.13,
+          "arrival_ns": 5.1,
+          "pin": "_5216_/Y",
+          "cell": "sky130_fd_sc_hd__o21ai_0"
+        },
+        {
+          "delay_ns": 0.19,
+          "arrival_ns": 5.29,
+          "pin": "_5313_/X",
+          "cell": "sky130_fd_sc_hd__a21o_1"
+        },
+        {
+          "delay_ns": 0.35,
+          "arrival_ns": 5.64,
+          "pin": "_5417_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.19,
+          "arrival_ns": 5.83,
+          "pin": "_5534_/Y",
+          "cell": "sky130_fd_sc_hd__a21oi_1"
+        },
+        {
+          "delay_ns": 0.15,
+          "arrival_ns": 5.98,
+          "pin": "_5668_/Y",
+          "cell": "sky130_fd_sc_hd__o21ai_0"
+        },
+        {
+          "delay_ns": 0.2,
+          "arrival_ns": 6.18,
+          "pin": "_5808_/Y",
+          "cell": "sky130_fd_sc_hd__a21oi_1"
+        },
+        {
+          "delay_ns": 0.15,
+          "arrival_ns": 6.33,
+          "pin": "_5966_/Y",
+          "cell": "sky130_fd_sc_hd__o21ai_0"
+        },
+        {
+          "delay_ns": 0.37,
+          "arrival_ns": 6.71,
+          "pin": "_6133_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.37,
+          "arrival_ns": 7.07,
+          "pin": "_6312_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.37,
+          "arrival_ns": 7.44,
+          "pin": "_6500_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.37,
+          "arrival_ns": 7.81,
+          "pin": "_6693_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.37,
+          "arrival_ns": 8.17,
+          "pin": "_6898_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.37,
+          "arrival_ns": 8.54,
+          "pin": "_7118_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.37,
+          "arrival_ns": 8.91,
+          "pin": "_7346_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.37,
+          "arrival_ns": 9.27,
+          "pin": "_7582_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.37,
+          "arrival_ns": 9.64,
+          "pin": "_7827_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.37,
+          "arrival_ns": 10.01,
+          "pin": "_8079_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.37,
+          "arrival_ns": 10.37,
+          "pin": "_8340_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.37,
+          "arrival_ns": 10.74,
+          "pin": "_8612_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.37,
+          "arrival_ns": 11.11,
+          "pin": "_8878_/X",
+          "cell": "sky130_fd_sc_hd__maj3_1"
+        },
+        {
+          "delay_ns": 0.16,
+          "arrival_ns": 11.27,
+          "pin": "_9164_/Y",
+          "cell": "sky130_fd_sc_hd__a21oi_1"
+        },
+        {
+          "delay_ns": 0.08,
+          "arrival_ns": 11.35,
+          "pin": "_9413_/Y",
+          "cell": "sky130_fd_sc_hd__xnor2_1"
+        },
+        {
+          "delay_ns": 0.0,
+          "arrival_ns": 11.35,
+          "pin": "_9446_/D",
+          "cell": "sky130_fd_sc_hd__dfrtp_1"
+        }
+      ],
+      "path_depth": 39
+    }
+  ],
+  "timestamp": "2026-08-24T09:39:42.597672+00:00"
+}

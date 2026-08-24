@@ -1,0 +1,1 @@
+### 1) For the 50K-cell benchmark requirement, does Astera Labs provide a baseline RTL repository for us to use, or are we expected to source/integrate our own open-source IP blocks (like a RISC-V SoC or combined cores) as long as it meets the 5-clock domain, CDC, and clock divider requirements? 

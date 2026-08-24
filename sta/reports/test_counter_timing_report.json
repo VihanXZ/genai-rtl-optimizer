@@ -1,0 +1,54 @@
+{
+  "$schema": "timing_report_v1",
+  "module_name": "generic_module",
+  "wns_ns": 0.0,
+  "num_violations": 0,
+  "critical_paths": [
+    {
+      "startpoint": "_16_",
+      "endpoint": "_19_",
+      "clock_domain": "clk",
+      "slack_ns": 0.0,
+      "stages": [
+        {
+          "delay_ns": 0.0,
+          "arrival_ns": 0.0,
+          "pin": "_16_/CLK",
+          "cell": "sky130_fd_sc_hd__dfxtp_1"
+        },
+        {
+          "delay_ns": 0.34,
+          "arrival_ns": 0.34,
+          "pin": "_16_/Q",
+          "cell": "sky130_fd_sc_hd__dfxtp_1"
+        },
+        {
+          "delay_ns": 0.19,
+          "arrival_ns": 0.53,
+          "pin": "_11_/X",
+          "cell": "sky130_fd_sc_hd__and3_1"
+        },
+        {
+          "delay_ns": 0.12,
+          "arrival_ns": 0.64,
+          "pin": "_14_/Y",
+          "cell": "sky130_fd_sc_hd__xnor2_1"
+        },
+        {
+          "delay_ns": 0.04,
+          "arrival_ns": 0.69,
+          "pin": "_15_/Y",
+          "cell": "sky130_fd_sc_hd__nor2_1"
+        },
+        {
+          "delay_ns": 0.0,
+          "arrival_ns": 0.69,
+          "pin": "_19_/D",
+          "cell": "sky130_fd_sc_hd__dfxtp_1"
+        }
+      ],
+      "path_depth": 6
+    }
+  ],
+  "timestamp": "2026-08-24T06:55:19.668416+00:00"
+}
