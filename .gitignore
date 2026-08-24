@@ -40,3 +40,5 @@ formal/logs/*.log
 
 # Keep directory structure even when contents are ignored
 !.gitkeep
+testcode_1_equiv/
+*_equiv/
