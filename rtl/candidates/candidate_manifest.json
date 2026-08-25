@@ -1,0 +1,19 @@
+{
+  "$schema": "candidate_manifest_v1",
+  "experiment_id": "exp_20260824_001",
+  "baseline_rtl": "rtl/testcases/testcode_1.sv",
+  "baseline_module": "testcode_1",
+  "candidates": [
+    {
+      "candidate_id": "candidate_001",
+      "file": "rtl/candidates/candidate_001.sv",
+      "module_name": "testcode_1",
+      "transformation": "pipelining",
+      "description": "Pipeline register inserted along worst critical path (_9513_ -> _9446_)",
+      "target_path": "_9513_ -> _9446_",
+      "prompt_version": "v1",
+      "llm_model": "gemini-3.6-flash",
+      "timestamp": "2026-08-24T12:03:16.631433+00:00"
+    }
+  ]
+}

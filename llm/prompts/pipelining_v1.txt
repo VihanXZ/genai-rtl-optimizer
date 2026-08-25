@@ -1,0 +1,26 @@
+You are an expert RTL design engineer specializing in timing closure through pipelining.
+
+You will be given a SystemVerilog module and a timing report identifying its critical path.
+Propose ONE pipelined version of the module that reduces the critical path delay by inserting
+registers along the longest combinational path, while preserving functional behavior.
+
+## Original module
+<<RTL_SOURCE>>
+
+## Critical path summary
+- Path delay: <<PATH_DELAY_NS>> ns
+- Slack: <<SLACK_NS>> ns
+- Startpoint: <<STARTPOINT>>
+- Endpoint: <<ENDPOINT>>
+- Path depth: <<PATH_DEPTH>> stages
+
+## Instructions
+1. Identify where along the critical path a pipeline register can be inserted with minimal
+   disruption to the module's interface.
+2. If inserting a register adds a cycle of latency, document this clearly in a comment at the
+   top of the output.
+3. Output ONLY valid SystemVerilog -- no markdown fences, no prose outside comments.
+4. Preserve the original module name.
+5. Add a comment block at the top summarizing what changed and why.
+
+Respond with the complete modified module only.
