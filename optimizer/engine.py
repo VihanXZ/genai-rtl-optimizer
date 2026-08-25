@@ -1,10 +1,10 @@
-"""Closed-loop optimizer entry point (early version).
+"""Closed-loop optimizer entry point.
 
-Reads a timing report + RTL source, generates a candidate via the LLM,
-and writes it out with a manifest entry. Formal verification and
-re-synthesis integration come in later phases.
+Usage:
+    python3 optimizer/engine.py --timing-report <path> --rtl-source <path> --module-name <name>
 """
 
+import argparse
 import json
 import sys
 from datetime import datetime, timezone
@@ -16,9 +16,6 @@ from llm.client import LLMClient
 from llm.strategies import load_prompt
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-TIMING_REPORT = REPO_ROOT / "sta" / "reports" / "testcode_1_timing_report.json"
-RTL_SOURCE_PATH = REPO_ROOT / "rtl" / "testcases" / "testcode_1.sv"
-MODULE_NAME = "testcode_1"  # overriding JSON's "generic_module" -- see schema note
 CANDIDATES_DIR = REPO_ROOT / "rtl" / "candidates"
 MANIFEST_PATH = CANDIDATES_DIR / "candidate_manifest.json"
 
@@ -30,28 +27,58 @@ def next_candidate_id() -> str:
     return f"candidate_{n:03d}"
 
 
+def format_stage_breakdown(stages: list) -> str:
+    """Render the gate-by-gate critical path as a readable table for the prompt."""
+    if not stages:
+        return "(no stage-level detail available)"
+
+    lines = []
+    prev_arrival = 0.0
+    for stage in stages:
+        arrival = stage.get("arrival_ns", 0.0)
+        delay = stage.get("delay_ns", arrival - prev_arrival)
+        cell = stage.get("cell", "?")
+        pin = stage.get("pin", "?")
+        lines.append(f"  {arrival:6.2f} ns  {pin:<20s} {cell:<30s} [+{delay:.2f} ns]")
+        prev_arrival = arrival
+    return "\n".join(lines)
+
+
 def main():
-    with open(TIMING_REPORT) as f:
+    parser = argparse.ArgumentParser(description="Generate an AI-suggested RTL candidate from a timing report.")
+    parser.add_argument("--timing-report", required=True, help="Path to a *_timing_report.json, relative to repo root")
+    parser.add_argument("--rtl-source", required=True, help="Path to the .sv source file, relative to repo root")
+    parser.add_argument("--module-name", required=True, help="The module's actual name (used in the manifest)")
+    parser.add_argument("--transformation", default="pipelining", help="Strategy to use (default: pipelining)")
+    args = parser.parse_args()
+
+    timing_report_path = REPO_ROOT / args.timing_report
+    rtl_source_path = REPO_ROOT / args.rtl_source
+
+    with open(timing_report_path) as f:
         report = json.load(f)
 
     if not report.get("critical_paths"):
-        raise RuntimeError("No critical paths found in timing report")
+        raise RuntimeError(
+            f"No critical paths in {args.timing_report} -- this file has no timing "
+            "violations, so there's nothing for the AI to optimize."
+        )
 
     worst = min(report["critical_paths"], key=lambda p: p["slack_ns"])
-    rtl_source = RTL_SOURCE_PATH.read_text()
+    rtl_source = rtl_source_path.read_text()
 
-    # path_delay_ns isn't in this report -- derive it from the last stage's
-    # arrival time, since stages start counting from 0 at the startpoint.
     path_delay_ns = worst["stages"][-1]["arrival_ns"] if worst.get("stages") else None
+    stage_breakdown = format_stage_breakdown(worst.get("stages", []))
 
     prompt = load_prompt(
-        "pipelining",
+        args.transformation,
         rtl_source=rtl_source,
         path_delay_ns=path_delay_ns,
         slack_ns=worst["slack_ns"],
         startpoint=worst["startpoint"],
         endpoint=worst["endpoint"],
         path_depth=worst.get("path_depth", "unknown"),
+        stage_breakdown=stage_breakdown,
     )
 
     client = LLMClient()
@@ -64,8 +91,8 @@ def main():
     manifest = {
         "$schema": "candidate_manifest_v1",
         "experiment_id": f"exp_{datetime.now().strftime('%Y%m%d')}_001",
-        "baseline_rtl": "rtl/testcases/testcode_1.sv",
-        "baseline_module": MODULE_NAME,
+        "baseline_rtl": args.rtl_source,
+        "baseline_module": args.module_name,
         "candidates": [],
     }
     if MANIFEST_PATH.exists():
@@ -74,9 +101,9 @@ def main():
     manifest["candidates"].append({
         "candidate_id": cand_id,
         "file": f"rtl/candidates/{cand_id}.sv",
-        "module_name": MODULE_NAME,
-        "transformation": "pipelining",
-        "description": f"Pipeline register inserted along worst critical path ({worst['startpoint']} -> {worst['endpoint']})",
+        "module_name": args.module_name,
+        "transformation": args.transformation,
+        "description": f"{args.transformation} applied along worst critical path ({worst['startpoint']} -> {worst['endpoint']}), using gate-level breakdown",
         "target_path": f"{worst['startpoint']} -> {worst['endpoint']}",
         "prompt_version": "v1",
         "llm_model": client.model,

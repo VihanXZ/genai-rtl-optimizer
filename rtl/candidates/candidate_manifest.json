@@ -14,6 +14,28 @@
       "prompt_version": "v1",
       "llm_model": "gemini-3.6-flash",
       "timestamp": "2026-08-24T12:03:16.631433+00:00"
+    },
+    {
+      "candidate_id": "candidate_002",
+      "file": "rtl/candidates/candidate_002.sv",
+      "module_name": "testcode_1",
+      "transformation": "pipelining",
+      "description": "pipelining applied along worst critical path (_9513_ -> _9446_), using gate-level breakdown",
+      "target_path": "_9513_ -> _9446_",
+      "prompt_version": "v1",
+      "llm_model": "gemini-3.6-flash",
+      "timestamp": "2026-08-25T15:06:31.490708+00:00"
+    },
+    {
+      "candidate_id": "candidate_003",
+      "file": "rtl/candidates/candidate_003.sv",
+      "module_name": "testcode_1",
+      "transformation": "pipelining",
+      "description": "pipelining applied along worst critical path (_9513_ -> _9446_), using gate-level breakdown",
+      "target_path": "_9513_ -> _9446_",
+      "prompt_version": "v1",
+      "llm_model": "gemini-3.6-flash",
+      "timestamp": "2026-08-25T15:20:18.730669+00:00"
     }
   ]
 }
