@@ -1,0 +1,12 @@
+[gold]
+read -sv rtl/testcases/bad_adder_chain_core.sv rtl/testcases/bad_adder_chain_gold_delayed.sv
+prep -top bad_adder_chain
+
+[gate]
+read -sv rtl/candidates/candidate_004.sv
+prep -top bad_adder_chain
+
+[strategy word]
+use sby
+depth 6
+engine smtbmc bitwuzla

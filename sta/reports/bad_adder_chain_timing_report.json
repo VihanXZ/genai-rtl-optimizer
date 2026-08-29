@@ -1,0 +1,26 @@
+{
+  "$schema": "timing_report_v1",
+  "module_name": "bad_adder_chain",
+  "clock_period_ns": 5.0,
+  "wns_ns": -6.2,
+  "num_violations": 1,
+  "critical_paths": [
+    {
+      "startpoint": "a",
+      "endpoint": "out",
+      "clock_domain": "clk",
+      "slack_ns": -6.2,
+      "path_depth": 7,
+      "stages": [
+        {"cell": "ESTIMATED_32bit_adder [a+b]", "pin": "sum1", "delay_ns": 1.6, "arrival_ns": 1.6},
+        {"cell": "ESTIMATED_32bit_adder [+c]",  "pin": "sum2", "delay_ns": 1.6, "arrival_ns": 3.2},
+        {"cell": "ESTIMATED_32bit_adder [+d]",  "pin": "sum3", "delay_ns": 1.6, "arrival_ns": 4.8},
+        {"cell": "ESTIMATED_32bit_adder [+e]",  "pin": "sum4", "delay_ns": 1.6, "arrival_ns": 6.4},
+        {"cell": "ESTIMATED_32bit_adder [+f]",  "pin": "sum5", "delay_ns": 1.6, "arrival_ns": 8.0},
+        {"cell": "ESTIMATED_32bit_adder [+g]",  "pin": "sum6", "delay_ns": 1.6, "arrival_ns": 9.6},
+        {"cell": "ESTIMATED_32bit_adder [+h]",  "pin": "out",  "delay_ns": 1.6, "arrival_ns": 11.2}
+      ]
+    }
+  ],
+  "timestamp": "ESTIMATED-NOT-REAL-STA -- hand-built for testing the optimizer pipeline only"
+}

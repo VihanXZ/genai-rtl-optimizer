@@ -1,0 +1,13 @@
+[options]
+
+[gold]
+read -sv rtl/testcases/testcode_1.sv
+prep -top testcode_1
+
+[gate]
+read -sv rtl/candidates/candidate_003.sv
+prep -top testcode_1
+
+[strategy simple]
+use sat
+depth 10

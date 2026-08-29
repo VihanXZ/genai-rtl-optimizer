@@ -36,6 +36,33 @@
       "prompt_version": "v1",
       "llm_model": "gemini-3.6-flash",
       "timestamp": "2026-08-25T15:20:18.730669+00:00"
+    },
+    {
+      "candidate_id": "candidate_004",
+      "file": "rtl/candidates/candidate_004.sv",
+      "module_name": "bad_adder_chain",
+      "transformation": "pipelining",
+      "description": "pipelining applied along worst critical path (a -> out)",
+      "target_path": "a -> out",
+      "prompt_version": "v1",
+      "llm_model": "gemini-3.6-flash",
+      "timestamp": "2026-08-29T13:44:12.817153+00:00",
+      "baseline_rtl": "rtl/testcases/bad_adder_chain.sv",
+      "baseline_module": "bad_adder_chain"
+    },
+    {
+      "candidate_id": "candidate_005",
+      "file": "rtl/candidates/candidate_005.sv",
+      "module_name": "bad_adder_chain",
+      "transformation": "pipelining",
+      "description": "pipelining applied along worst critical path (a -> out)",
+      "target_path": "a -> out",
+      "latency_delta_cycles": 2,
+      "prompt_version": "v1",
+      "llm_model": "gemini-3.6-flash",
+      "timestamp": "2026-08-29T14:33:51.065337+00:00",
+      "baseline_rtl": "rtl/testcases/bad_adder_chain.sv",
+      "baseline_module": "bad_adder_chain"
     }
   ]
 }
