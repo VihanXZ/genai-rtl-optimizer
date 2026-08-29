@@ -6,6 +6,7 @@ Usage:
 
 import argparse
 import json
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -22,16 +23,19 @@ MANIFEST_PATH = CANDIDATES_DIR / "candidate_manifest.json"
 
 def next_candidate_id() -> str:
     CANDIDATES_DIR.mkdir(parents=True, exist_ok=True)
-    existing = sorted(CANDIDATES_DIR.glob("candidate_*.sv"))
-    n = len(existing) + 1
+    numbers = []
+    for f in CANDIDATES_DIR.glob("candidate_*.sv"):
+        try:
+            numbers.append(int(f.stem.split("_")[1]))
+        except (IndexError, ValueError):
+            continue
+    n = max(numbers, default=0) + 1
     return f"candidate_{n:03d}"
 
 
 def format_stage_breakdown(stages: list) -> str:
-    """Render the gate-by-gate critical path as a readable table for the prompt."""
     if not stages:
         return "(no stage-level detail available)"
-
     lines = []
     prev_arrival = 0.0
     for stage in stages:
@@ -44,12 +48,25 @@ def format_stage_breakdown(stages: list) -> str:
     return "\n".join(lines)
 
 
+def extract_latency_delta(candidate_sv: str) -> int:
+    """Pull the required LATENCY_DELTA_CYCLES marker out of the AI's response.
+
+    Defaults to 0 (assume no added latency) if the marker is missing --
+    logged as a warning, since the AI is supposed to always include it.
+    """
+    match = re.search(r"LATENCY_DELTA_CYCLES:\s*(-?\d+)", candidate_sv)
+    if not match:
+        print("WARNING: no LATENCY_DELTA_CYCLES marker found in response -- assuming 0")
+        return 0
+    return int(match.group(1))
+
+
 def main():
     parser = argparse.ArgumentParser(description="Generate an AI-suggested RTL candidate from a timing report.")
-    parser.add_argument("--timing-report", required=True, help="Path to a *_timing_report.json, relative to repo root")
-    parser.add_argument("--rtl-source", required=True, help="Path to the .sv source file, relative to repo root")
-    parser.add_argument("--module-name", required=True, help="The module's actual name (used in the manifest)")
-    parser.add_argument("--transformation", default="pipelining", help="Strategy to use (default: pipelining)")
+    parser.add_argument("--timing-report", required=True)
+    parser.add_argument("--rtl-source", required=True)
+    parser.add_argument("--module-name", required=True)
+    parser.add_argument("--transformation", default="pipelining")
     args = parser.parse_args()
 
     timing_report_path = REPO_ROOT / args.timing_report
@@ -60,13 +77,11 @@ def main():
 
     if not report.get("critical_paths"):
         raise RuntimeError(
-            f"No critical paths in {args.timing_report} -- this file has no timing "
-            "violations, so there's nothing for the AI to optimize."
+            f"No critical paths in {args.timing_report} -- nothing for the AI to optimize."
         )
 
     worst = min(report["critical_paths"], key=lambda p: p["slack_ns"])
     rtl_source = rtl_source_path.read_text()
-
     path_delay_ns = worst["stages"][-1]["arrival_ns"] if worst.get("stages") else None
     stage_breakdown = format_stage_breakdown(worst.get("stages", []))
 
@@ -83,6 +98,7 @@ def main():
 
     client = LLMClient()
     candidate_sv = client.generate(prompt)
+    latency_delta = extract_latency_delta(candidate_sv)
 
     cand_id = next_candidate_id()
     out_path = CANDIDATES_DIR / f"{cand_id}.sv"
@@ -100,11 +116,14 @@ def main():
 
     manifest["candidates"].append({
         "candidate_id": cand_id,
+        "baseline_rtl": args.rtl_source,
+        "baseline_module": args.module_name,
         "file": f"rtl/candidates/{cand_id}.sv",
         "module_name": args.module_name,
         "transformation": args.transformation,
-        "description": f"{args.transformation} applied along worst critical path ({worst['startpoint']} -> {worst['endpoint']}), using gate-level breakdown",
+        "description": f"{args.transformation} applied along worst critical path ({worst['startpoint']} -> {worst['endpoint']})",
         "target_path": f"{worst['startpoint']} -> {worst['endpoint']}",
+        "latency_delta_cycles": latency_delta,
         "prompt_version": "v1",
         "llm_model": client.model,
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -113,6 +132,7 @@ def main():
 
     print(f"Wrote {out_path}")
     print(f"Updated {MANIFEST_PATH}")
+    print(f"Reported latency delta: {latency_delta} cycle(s)")
 
 
 if __name__ == "__main__":
