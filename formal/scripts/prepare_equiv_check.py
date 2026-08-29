@@ -1,14 +1,18 @@
 """Auto-generate an EQY equivalence-check config for a candidate.
 
-If the candidate's manifest entry reports added latency
-(latency_delta_cycles > 0), this also generates a delay-matched wrapper
-around the original RTL, so the comparison is fair -- same total latency
-on both sides -- instead of misaligned cycles causing a false FAIL.
+Two things happen automatically here:
+1. If the candidate reports added latency (latency_delta_cycles > 0), a
+   delay-matched wrapper is generated around the original RTL, so the
+   comparison is fair -- same total latency on both sides.
+2. The strategy cascade is ordered based on whether the candidate contains
+   multiplication/division. Confirmed from EQY's own docs: a `timeout` on
+   an sby-based strategy makes EQY automatically try the next strategy if
+   the current one doesn't finish in time -- so instead of betting on one
+   solver, we genuinely try several, escalating automatically.
 
-Scope note: the port-list parsing here assumes a simple, single-module,
-ANSI-style port list with a standard clk/rst_n and one final output port
-(matching our current test designs). More complex multi-module or
-non-standard files may need manual adjustment.
+Scope note: port-list parsing assumes a simple, single-module, ANSI-style
+port list with a standard clk/rst_n and one final output port (matching
+our current test designs).
 
 Usage:
     python3 formal/scripts/prepare_equiv_check.py --candidate-id candidate_004
@@ -34,6 +38,65 @@ def extract_port_names(port_block: str) -> list[str]:
     return names
 
 
+def has_mult_or_div(sv_text: str) -> bool:
+    """Check for real multiply/divide operators, ignoring comments."""
+    code = re.sub(r"//.*", "", sv_text)
+    code = re.sub(r"/\*.*?\*/", "", code, flags=re.DOTALL)
+    return bool(re.search(r"[^=!<>]\*(?!\))|(?<!/)/(?!/)", code))
+
+
+def build_strategy_block(sv_text: str) -> tuple[str, str]:
+    """Return (strategy_block, reason) -- the .eqy strategy section text and
+    a short explanation of why this ordering was chosen, based on real,
+    confirmed results from this project's own testing."""
+    if has_mult_or_div(sv_text):
+        reason = (
+            "Multiplication/division detected -- SAT k-induction historically "
+            "struggles here, so we skip straight to SMT solvers: Bitwuzla first "
+            "(specialized for bit-vector arithmetic), Boolector as a timed "
+            "fallback, Z3 as an uncapped last resort."
+        )
+        block = """[strategy primary]
+use sby
+depth 6
+engine smtbmc bitwuzla
+timeout 600
+
+[strategy fallback]
+use sby
+depth 6
+engine smtbmc boolector
+timeout 600
+
+[strategy last_resort]
+use sby
+depth 6
+engine smtbmc z3
+"""
+    else:
+        reason = (
+            "No multiplication/division detected -- plain SAT k-induction has "
+            "proven fast and reliable for addition/logic-only designs in our "
+            "testing, so it's tried first, with SMT solvers as fallbacks."
+        )
+        block = """[strategy quick]
+use sat
+depth 10
+
+[strategy fallback]
+use sby
+depth 6
+engine smtbmc bitwuzla
+timeout 600
+
+[strategy last_resort]
+use sby
+depth 6
+engine smtbmc z3
+"""
+    return block, reason
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--candidate-id", required=True)
@@ -48,7 +111,11 @@ def main():
     baseline_rtl_rel = entry.get("baseline_rtl", manifest.get("baseline_rtl"))
     baseline_rtl = REPO_ROOT / baseline_rtl_rel
     candidate_file_rel = entry["file"]
+    candidate_path = REPO_ROOT / candidate_file_rel
     latency_delta = entry.get("latency_delta_cycles", 0)
+
+    strategy_block, reason = build_strategy_block(candidate_path.read_text())
+    print(f"Strategy ordering: {reason}\n")
 
     eqy_dir = REPO_ROOT / "formal" / "scripts"
     eqy_dir.mkdir(parents=True, exist_ok=True)
@@ -63,11 +130,7 @@ prep -top {module_name}
 read -sv {candidate_file_rel}
 prep -top {module_name}
 
-[strategy word]
-use sby
-depth 6
-engine smtbmc bitwuzla
-""")
+{strategy_block}""")
         print(f"No added latency reported -- wrote direct comparison config:\n  {eqy_path}")
         print(f"\nRun with:\n  eqy {eqy_path.relative_to(REPO_ROOT)}")
         return
@@ -137,11 +200,7 @@ prep -top {module_name}
 read -sv {candidate_file_rel}
 prep -top {module_name}
 
-[strategy word]
-use sby
-depth 6
-engine smtbmc bitwuzla
-""")
+{strategy_block}""")
     print(f"Detected {latency_delta} cycle(s) of added latency -- generated delay-matched wrapper:")
     print(f"  {core_path.relative_to(REPO_ROOT)}")
     print(f"  {wrapper_path.relative_to(REPO_ROOT)}")
