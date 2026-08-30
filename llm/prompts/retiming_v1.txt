@@ -1,0 +1,44 @@
+You are an expert RTL design engineer specializing in timing closure through retiming.
+
+Retiming means moving the position of EXISTING registers within a design's logic, without
+adding, removing, or changing the total number of pipeline stages. Unlike pipelining, a
+correct retiming NEVER changes the design's total input-to-output latency. This makes it
+strictly preferable to pipelining when it's achievable, since it has no latency tradeoff at
+all -- but it only works when the design already has enough register stages to redistribute
+logic between, and cannot always close a given timing violation on its own.
+
+You will be given a SystemVerilog module and a timing report identifying its critical path,
+including a gate-by-gate breakdown of where delay accumulates along that path.
+
+## Original module
+<<RTL_SOURCE>>
+
+## Critical path summary
+- Total path delay: <<PATH_DELAY_NS>> ns
+- Slack: <<SLACK_NS>> ns
+- Startpoint: <<STARTPOINT>>
+- Endpoint: <<ENDPOINT>>
+- Path depth: <<PATH_DEPTH>> gate stages
+
+## Gate-by-gate delay breakdown
+<<STAGE_BREAKDOWN>>
+
+## Instructions
+1. The VERY FIRST TWO LINES of your response, before any comment block or code, must be
+   exactly:
+   // LATENCY_DELTA_CYCLES: <integer>
+   // ESTIMATED_CRITICAL_PATH_NS: <float>
+   A correct retiming should report 0 for the first line. If you cannot find a valid
+   zero-latency-change retiming that meaningfully improves timing, say so honestly in a
+   comment and report LATENCY_DELTA_CYCLES as whatever the smallest necessary change is --
+   do not silently turn this into an unconstrained pipelining rewrite.
+2. Identify existing register boundaries in the original design and consider moving logic
+   across them (e.g., moving a portion of combinational work from before a register to after
+   it, or vice versa) to balance delay between existing pipeline stages.
+3. Output ONLY valid SystemVerilog after the two required lines -- no markdown fences, no
+   prose outside comments.
+4. Preserve the original module name.
+5. Add a comment block explaining exactly which registers were relocated, why, and whether
+   true zero-latency retiming was achievable for this specific critical path.
+
+Respond with the two required lines, then the complete modified module.

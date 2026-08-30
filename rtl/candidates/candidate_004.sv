@@ -1,73 +1,46 @@
 /*
- * Module: bad_counter (Pipelined Version)
- *
+ * Module: bad_adder_chain
+ * 
  * Summary of Changes:
- * - The original design chained three 32-bit multipliers in a single combinational
- *   path (t1 = step * step; t2 = t1 * step; t3 = t2 * t1;), leading to a 39-stage
- *   critical path with a delay of 9.2 ns.
- * - To achieve timing closure, the multiplication chain is split into a 3-stage pipeline,
- *   performing one 32-bit multiplication per stage.
+ * 1. Inserted a pipeline register stage to split the 7-stage adder chain into two 
+ *    parallel 4-stage addition paths (sum_abcd and sum_efgh) followed by a final addition stage.
+ * 2. Latency Impact: Adds 1 additional clock cycle of latency. Total output latency is now 
+ *    2 clock cycles (previously 1 cycle).
  *
- * Latency:
- * - Inserting pipeline registers introduces 3 clock cycles of latency from when
- *   a new `step` value is sampled until `slow_step` is computed and applied to `count`.
+ * Rationale & Timing Breakdown Analysis:
+ * - The original critical path accumulated 1.60 ns of delay per 32-bit addition stage, 
+ *   reaching 11.20 ns across all 7 cumulative additions (sum1 through sum6 to out).
+ * - By stage 4 (sum4), cumulative delay reaches 6.40 ns. 
+ * - Splitting the additions into two 4-input trees (a+b+c+d and e+f+g+h) executed in parallel 
+ *   during Stage 1 caps the Stage 1 critical path at 6.40 ns (3 additions).
+ * - Stage 2 performs the final addition (1.60 ns).
+ * - This reduces the worst-case critical path delay from 11.20 ns down to 6.40 ns, 
+ *   significantly improving overall setup slack.
  */
 
-module bad_counter (
-    input  logic        clk,
-    input  logic        rst_n,
-    input  logic [31:0] step,
-    output logic [31:0] count
+module bad_adder_chain (
+    input clk,
+    input rst_n,
+    input [31:0] a, b, c, d, e, f, g, h,
+    output reg [31:0] out
 );
 
-    // Stage 1 registers
-    logic [31:0] step_r1;
-    logic [31:0] t1_r1;
+    // Stage 1 pipeline registers
+    reg [31:0] sum_abcd;
+    reg [31:0] sum_efgh;
 
-    // Stage 2 registers
-    logic [31:0] t1_r2;
-    logic [31:0] t2_r2;
-
-    // Stage 3 register (slow_step)
-    logic [31:0] slow_step;
-
-    // Pipeline Stage 1: Compute step^2 and forward step
-    always_ff @(posedge clk or negedge rst_n) begin
+    always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            step_r1 <= 32'd0;
-            t1_r1   <= 32'd0;
+            sum_abcd <= 32'd0;
+            sum_efgh <= 32'd0;
+            out      <= 32'd0;
         end else begin
-            step_r1 <= step;
-            t1_r1   <= step * step;
-        end
-    end
+            // Stage 1: Partial sums (3 adder stages in series per path = ~4.8ns to ~6.4ns path delay)
+            sum_abcd <= (((a + b) + c) + d);
+            sum_efgh <= (((e + f) + g) + h);
 
-    // Pipeline Stage 2: Compute step^3 and forward step^2
-    always_ff @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
-            t1_r2 <= 32'd0;
-            t2_r2 <= 32'd0;
-        end else begin
-            t1_r2 <= t1_r1;
-            t2_r2 <= t1_r1 * step_r1;
-        end
-    end
-
-    // Pipeline Stage 3: Compute step^5 (slow_step)
-    always_ff @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
-            slow_step <= 32'd0;
-        end else begin
-            slow_step <= t2_r2 * t1_r2;
-        end
-    end
-
-    // Accumulator Stage
-    always_ff @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
-            count <= 32'd0;
-        end else begin
-            count <= count + slow_step + 32'd1;
+            // Stage 2: Final sum (1 adder stage = ~1.6ns path delay)
+            out      <= sum_abcd + sum_efgh;
         end
     end
 

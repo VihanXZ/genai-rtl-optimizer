@@ -87,10 +87,19 @@ class LLMClient:
             temperature=self.temperature,
             max_output_tokens=self.max_tokens,
             system_instruction=system if system else None,
+            thinking_config=types.ThinkingConfig(include_thoughts=False),
         )
         response = client.models.generate_content(
             model=self.model,
             contents=prompt,
             config=config,
         )
-        return response.text
+        # Explicitly skip any "thinking" parts -- don't trust response.text alone,
+        # since thinking content can leak into it on some model/SDK versions.
+        answer_parts = []
+        for part in response.candidates[0].content.parts:
+            if getattr(part, "thought", False):
+                continue
+            if part.text:
+                answer_parts.append(part.text)
+        return "".join(answer_parts)

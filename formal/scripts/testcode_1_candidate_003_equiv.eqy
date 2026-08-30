@@ -1,0 +1,24 @@
+[gold]
+read -sv rtl/testcases/testcode_1.sv
+prep -top testcode_1
+
+[gate]
+read -sv rtl/candidates/candidate_003.sv
+prep -top testcode_1
+
+[strategy primary]
+use sby
+depth 6
+engine smtbmc bitwuzla
+timeout 600
+
+[strategy fallback]
+use sby
+depth 6
+engine smtbmc boolector
+timeout 600
+
+[strategy last_resort]
+use sby
+depth 6
+engine smtbmc z3

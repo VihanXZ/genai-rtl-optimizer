@@ -1,91 +1,57 @@
+// LATENCY_DELTA_CYCLES: 1
+// ESTIMATED_CRITICAL_PATH_NS: 3.20
+
 /*
- * Module: bad_counter
- * Optimization: Pipelined variable multiplications (step^5) to meet 4.0ns timing.
- * Each 16x16 multiply is split into 2 stages:
- *   Stage 1: Partial product generation (16x8-bit mults, ~2.5ns delay)
- *   Stage 2: Partial product accumulation (16-bit add, ~0.5ns delay)
- * Added pipeline latency: 7 clock cycles from step input to count update.
+ * Pipelining & Timing Optimization Summary:
+ * -----------------------------------------
+ * Analysis of Original Critical Path (7.60 ns):
+ * 1. 16x16 Multiplier stage: 2.80 ns (largest single gate stage delay).
+ * 2. Linear Adder Chain: 3 stages at 1.60 ns each = 4.80 ns total.
+ *
+ * Changes Made:
+ * 1. Inserted pipeline registers (p0, p1, p2, p3) immediately after the multiplication 
+ *    operations. This isolates the 2.80 ns multiplier delay to Stage 1.
+ * 2. Restructured the 3-stage linear adder chain into a balanced 2-level adder tree 
+ *    in Stage 2: (p0 + p1) + (p2 + p3). This limits Stage 2 delay to 2 * 1.60 ns = 3.20 ns.
+ * 3. Latency Impact: Introduces 1 additional clock cycle of latency (total 2 cycles from 
+ *    inputs to output register).
+ *
+ * Resulting Estimated Critical Path:
+ * - Stage 1 (Multipliers): 2.80 ns
+ * - Stage 2 (Adder Tree):  3.20 ns
+ * - New Critical Path:      3.20 ns (slack improved by 4.40 ns)
  */
 
-module bad_counter (
-    input logic clk,
-    input logic rst_n,
-    input logic [15:0] step,
-    output logic [15:0] count
+module bad_mac_array (
+    input clk,
+    input rst_n,
+    input [15:0] a0, a1, a2, a3,
+    input [15:0] b0, b1, b2, b3,
+    output reg [31:0] out
 );
+    // Pipeline Stage 1 Registers (Product Accumulation)
+    reg [31:0] p0, p1, p2, p3;
 
-    // Stage 1: M1 partial products (step * step)
-    logic [15:0] m1_pp0, m1_pp1;
-    logic [15:0] step_d1;
-
-    // Stage 2: M1 accumulation (t1 = step^2)
-    logic [15:0] t1;
-    logic [15:0] step_d2;
-
-    // Stage 3: M2 partial products (t1 * step)
-    logic [15:0] m2_pp0, m2_pp1;
-    logic [15:0] t1_d1;
-
-    // Stage 4: M2 accumulation (t2 = step^3)
-    logic [15:0] t2;
-    logic [15:0] t1_d2;
-
-    // Stage 5: M3 partial products (t2 * t1)
-    logic [15:0] m3_pp0, m3_pp1;
-
-    // Stage 6: M3 accumulation (slow_step = step^5)
-    logic [15:0] slow_step;
-
-    always_ff @(posedge clk or negedge rst_n) begin
+    always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            m1_pp0    <= 16'd0;
-            m1_pp1    <= 16'd0;
-            step_d1   <= 16'd0;
-
-            t1        <= 16'd0;
-            step_d2   <= 16'd0;
-
-            m2_pp0    <= 16'd0;
-            m2_pp1    <= 16'd0;
-            t1_d1     <= 16'd0;
-
-            t2        <= 16'd0;
-            t1_d2     <= 16'd0;
-
-            m3_pp0    <= 16'd0;
-            m3_pp1    <= 16'd0;
-
-            slow_step <= 16'd0;
-
-            count     <= 16'd0;
+            p0 <= 32'd0;
+            p1 <= 32'd0;
+            p2 <= 32'd0;
+            p3 <= 32'd0;
         end else begin
-            // Stage 1: Partial products for t1 = step * step
-            m1_pp0    <= step * step[7:0];
-            m1_pp1    <= step * step[15:8];
-            step_d1   <= step;
+            p0 <= a0 * b0;
+            p1 <= a1 * b1;
+            p2 <= a2 * b2;
+            p3 <= a3 * b3;
+        end
+    end
 
-            // Stage 2: Accumulate t1
-            t1        <= m1_pp0 + (m1_pp1 << 8);
-            step_d2   <= step_d1;
-
-            // Stage 3: Partial products for t2 = t1 * step
-            m2_pp0    <= t1 * step_d2[7:0];
-            m2_pp1    <= t1 * step_d2[15:8];
-            t1_d1     <= t1;
-
-            // Stage 4: Accumulate t2
-            t2        <= m2_pp0 + (m2_pp1 << 8);
-            t1_d2     <= t1_d1;
-
-            // Stage 5: Partial products for t3 = t2 * t1
-            m3_pp0    <= t2 * t1_d2[7:0];
-            m3_pp1    <= t2 * t1_d2[15:8];
-
-            // Stage 6: Accumulate slow_step
-            slow_step <= m3_pp0 + (m3_pp1 << 8);
-
-            // Stage 7: Accumulate count
-            count     <= count + slow_step + 16'd1;
+    // Pipeline Stage 2 Register (Balanced Adder Tree Output)
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            out <= 32'd0;
+        end else begin
+            out <= (p0 + p1) + (p2 + p3);
         end
     end
 

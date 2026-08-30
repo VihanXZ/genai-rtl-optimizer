@@ -1,33 +1,45 @@
-You are an expert RTL design engineer. You will be given a SystemVerilog module
-with a timing violation of <<SLACK_NS>> ns (must become positive to pass).
+You are an expert RTL design engineer specializing in timing closure through pipelining.
+
+You will be given a SystemVerilog module and a timing report identifying its critical path,
+including a gate-by-gate breakdown of where delay accumulates along that path. Propose ONE
+pipelined version of the module that reduces the critical path delay by inserting registers
+at the point where delay accumulates most, while preserving functional behavior.
 
 ## Original module
 <<RTL_SOURCE>>
 
-## Timing info
-- Slack: <<SLACK_NS>> ns (NEGATIVE = VIOLATION)
-- Clock period: <<CLOCK_PERIOD_NS>> ns
+## Critical path summary
+- Total path delay: <<PATH_DELAY_NS>> ns
+- Slack: <<SLACK_NS>> ns
+- Startpoint: <<STARTPOINT>>
+- Endpoint: <<ENDPOINT>>
+- Path depth: <<PATH_DEPTH>> gate stages
 
-## Gate-level analysis
-<<PATH_STAGES>>
+## Gate-by-gate delay breakdown
+(cumulative arrival time, per-stage delay, and cell type at each point along the path --
+net names are post-synthesis IDs, but the PATTERN of which cell types cluster and where
+delay accumulates fastest is meaningful)
+<<STAGE_BREAKDOWN>>
 
-## STRICT RULES - READ CAREFULLY:
-1. DO NOT simplify or restructure the math. DO NOT replace multiplications with
-   shifts and adds. The synthesis tool (Yosys) already optimizes constant
-   multiplies better than hand-written shift-add logic.
+## Instructions
+1. The VERY FIRST TWO LINES of your response, before any comment block or code, must be
+   exactly:
+   // LATENCY_DELTA_CYCLES: <integer>
+   // ESTIMATED_CRITICAL_PATH_NS: <float>
+   where the first is how many EXTRA clock cycles of latency your design takes compared to
+   the original (0 if unchanged), and the second is your best estimate of the new critical
+   path delay in nanoseconds after your change (a positive number, always less than the
+   original <<PATH_DELAY_NS>> ns). These two lines must be machine-parseable -- no extra
+   words, punctuation, or explanation on either line.
+2. Use the gate-by-gate breakdown to identify WHERE delay accumulates fastest -- that's
+   usually the best place to insert a pipeline register, not just the midpoint by stage
+   count.
+3. If inserting a register adds a cycle of latency, also explain this in a comment near the
+   top of the module.
+4. Output ONLY valid SystemVerilog after the two required lines -- no markdown fences, no
+   prose outside comments.
+5. Preserve the original module name.
+6. Add a comment block summarizing what changed, why, and which part of the gate-level
+   breakdown drove the decision.
 
-2. Your ONLY job is to split the combinational logic across pipeline stages
-   by inserting flip-flop registers at strategic points in the computation chain.
-
-3. To do this:
-   a. Take the existing always_comb block
-   b. Split the assignments into TWO groups
-   c. Put the first group's results into registered (always_ff) pipeline registers
-   d. The second group reads from those registers and computes the rest
-   e. Keep each group's logic EXACTLY as-is (same operators, same constants)
-
-4. Keep the original module name and port list exactly.
-5. Output ONLY valid SystemVerilog. No markdown fences.
-6. Add a brief comment about the pipeline latency.
-
-Respond with the complete modified module only.
+Respond with the two required lines, then the complete modified module.

@@ -1,0 +1,11 @@
+{
+  "$schema": "formal_result_v1",
+  "candidate_id": "candidate_007",
+  "baseline_rtl": "rtl/testcases/bad_mac_array.sv",
+  "candidate_rtl": "rtl/candidates/candidate_007.sv",
+  "module_name": "bad_mac_array",
+  "tool": "eqy",
+  "equivalent": true,
+  "status": "PASS",
+  "timestamp": "2026-08-30T12:12:24.688126+00:00"
+}
