@@ -63,6 +63,51 @@
       "timestamp": "2026-08-29T14:33:51.065337+00:00",
       "baseline_rtl": "rtl/testcases/bad_adder_chain.sv",
       "baseline_module": "bad_adder_chain"
+    },
+    {
+      "candidate_id": "candidate_006",
+      "baseline_rtl": "rtl/testcases/bad_adder_chain.sv",
+      "baseline_module": "bad_adder_chain",
+      "file": "rtl/candidates/candidate_006.sv",
+      "module_name": "bad_adder_chain",
+      "transformation": "retiming",
+      "description": "retiming applied along worst critical path (a -> out)",
+      "target_path": "a -> out",
+      "latency_delta_cycles": 0,
+      "prompt_version": "v1",
+      "llm_model": "gemini-3.6-flash",
+      "timestamp": "2026-08-30T07:52:17.996872+00:00",
+      "estimated_critical_path_ns": 4.8
+    },
+    {
+      "candidate_id": "candidate_007",
+      "baseline_rtl": "rtl/testcases/bad_mac_array.sv",
+      "baseline_module": "bad_mac_array",
+      "file": "rtl/candidates/candidate_007.sv",
+      "module_name": "bad_mac_array",
+      "transformation": "retiming",
+      "description": "retiming applied along worst critical path (a0 -> out)",
+      "target_path": "a0 -> out",
+      "latency_delta_cycles": 0,
+      "prompt_version": "v1",
+      "llm_model": "gemini-3.6-flash",
+      "timestamp": "2026-08-30T09:11:13.377262+00:00",
+      "estimated_critical_path_ns": 3.2
+    },
+    {
+      "candidate_id": "candidate_008",
+      "baseline_rtl": "rtl/testcases/bad_mac_array.sv",
+      "baseline_module": "bad_mac_array",
+      "file": "rtl/candidates/candidate_008.sv",
+      "module_name": "bad_mac_array",
+      "transformation": "pipelining",
+      "description": "pipelining applied along worst critical path (a0 -> out)",
+      "target_path": "a0 -> out",
+      "latency_delta_cycles": 1,
+      "prompt_version": "v1",
+      "llm_model": "gemini-3.6-flash",
+      "timestamp": "2026-08-30T09:11:43.353120+00:00",
+      "estimated_critical_path_ns": 3.2
     }
   ]
 }

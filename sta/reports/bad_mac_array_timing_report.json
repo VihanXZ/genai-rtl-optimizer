@@ -1,0 +1,23 @@
+{
+  "$schema": "timing_report_v1",
+  "module_name": "bad_mac_array",
+  "clock_period_ns": 3.0,
+  "wns_ns": -4.6,
+  "num_violations": 1,
+  "critical_paths": [
+    {
+      "startpoint": "a0",
+      "endpoint": "out",
+      "clock_domain": "clk",
+      "slack_ns": -4.6,
+      "path_depth": 4,
+      "stages": [
+        {"cell": "ESTIMATED_16x16_multiplier [a0*b0]", "pin": "prod0", "delay_ns": 2.8, "arrival_ns": 2.8},
+        {"cell": "ESTIMATED_32bit_adder [+a1*b1]", "pin": "sum1", "delay_ns": 1.6, "arrival_ns": 4.4},
+        {"cell": "ESTIMATED_32bit_adder [+a2*b2]", "pin": "sum2", "delay_ns": 1.6, "arrival_ns": 6.0},
+        {"cell": "ESTIMATED_32bit_adder [+a3*b3]", "pin": "out",  "delay_ns": 1.6, "arrival_ns": 7.6}
+      ]
+    }
+  ],
+  "timestamp": "ESTIMATED-NOT-REAL-STA -- hand-built for testing the optimizer pipeline only"
+}

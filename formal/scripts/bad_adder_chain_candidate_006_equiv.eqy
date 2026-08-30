@@ -1,0 +1,22 @@
+[gold]
+read -sv rtl/testcases/bad_adder_chain.sv
+prep -top bad_adder_chain
+
+[gate]
+read -sv rtl/candidates/candidate_006.sv
+prep -top bad_adder_chain
+
+[strategy quick]
+use sat
+depth 10
+
+[strategy fallback]
+use sby
+depth 6
+engine smtbmc bitwuzla
+timeout 600
+
+[strategy last_resort]
+use sby
+depth 6
+engine smtbmc z3
