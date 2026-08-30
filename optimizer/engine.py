@@ -1,7 +1,7 @@
 """Closed-loop optimizer entry point.
 
 Usage:
-    python3 optimizer/engine.py --timing-report <path> --rtl-source <path> --module-name <name>
+    python3 optimizer/engine.py --timing-report <path> --rtl-source <path> --module-name <name> [--transformation pipelining|retiming]
 """
 
 import argparse
@@ -49,16 +49,19 @@ def format_stage_breakdown(stages: list) -> str:
 
 
 def extract_latency_delta(candidate_sv: str) -> int:
-    """Pull the required LATENCY_DELTA_CYCLES marker out of the AI's response.
-
-    Defaults to 0 (assume no added latency) if the marker is missing --
-    logged as a warning, since the AI is supposed to always include it.
-    """
     match = re.search(r"LATENCY_DELTA_CYCLES:\s*(-?\d+)", candidate_sv)
     if not match:
-        print("WARNING: no LATENCY_DELTA_CYCLES marker found in response -- assuming 0")
+        print("WARNING: no LATENCY_DELTA_CYCLES marker found -- assuming 0")
         return 0
     return int(match.group(1))
+
+
+def extract_estimated_critical_path(candidate_sv: str) -> float | None:
+    match = re.search(r"ESTIMATED_CRITICAL_PATH_NS:\s*([\d.]+)", candidate_sv)
+    if not match:
+        print("WARNING: no ESTIMATED_CRITICAL_PATH_NS marker found")
+        return None
+    return float(match.group(1))
 
 
 def main():
@@ -66,7 +69,7 @@ def main():
     parser.add_argument("--timing-report", required=True)
     parser.add_argument("--rtl-source", required=True)
     parser.add_argument("--module-name", required=True)
-    parser.add_argument("--transformation", default="pipelining")
+    parser.add_argument("--transformation", default="pipelining", help="pipelining or retiming")
     args = parser.parse_args()
 
     timing_report_path = REPO_ROOT / args.timing_report
@@ -99,6 +102,7 @@ def main():
     client = LLMClient()
     candidate_sv = client.generate(prompt)
     latency_delta = extract_latency_delta(candidate_sv)
+    estimated_critical_path_ns = extract_estimated_critical_path(candidate_sv)
 
     cand_id = next_candidate_id()
     out_path = CANDIDATES_DIR / f"{cand_id}.sv"
@@ -116,14 +120,16 @@ def main():
 
     manifest["candidates"].append({
         "candidate_id": cand_id,
-        "baseline_rtl": args.rtl_source,
-        "baseline_module": args.module_name,
         "file": f"rtl/candidates/{cand_id}.sv",
         "module_name": args.module_name,
+        "baseline_rtl": args.rtl_source,
+        "baseline_module": args.module_name,
         "transformation": args.transformation,
         "description": f"{args.transformation} applied along worst critical path ({worst['startpoint']} -> {worst['endpoint']})",
         "target_path": f"{worst['startpoint']} -> {worst['endpoint']}",
+        "original_path_delay_ns": path_delay_ns,
         "latency_delta_cycles": latency_delta,
+        "estimated_critical_path_ns": estimated_critical_path_ns,
         "prompt_version": "v1",
         "llm_model": client.model,
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -133,6 +139,7 @@ def main():
     print(f"Wrote {out_path}")
     print(f"Updated {MANIFEST_PATH}")
     print(f"Reported latency delta: {latency_delta} cycle(s)")
+    print(f"Reported estimated critical path: {estimated_critical_path_ns} ns (was {path_delay_ns} ns)")
 
 
 if __name__ == "__main__":

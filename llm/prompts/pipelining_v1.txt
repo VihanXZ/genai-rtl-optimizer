@@ -17,27 +17,29 @@ at the point where delay accumulates most, while preserving functional behavior.
 
 ## Gate-by-gate delay breakdown
 (cumulative arrival time, per-stage delay, and cell type at each point along the path --
-note: net names are post-synthesis IDs and don't map to RTL signal names directly, but the
-PATTERN of which cell types cluster and where delay accumulates fastest is meaningful)
+net names are post-synthesis IDs, but the PATTERN of which cell types cluster and where
+delay accumulates fastest is meaningful)
 <<STAGE_BREAKDOWN>>
 
 ## Instructions
-1. The VERY FIRST LINE of your response, before any comment block or code, must be exactly:
+1. The VERY FIRST TWO LINES of your response, before any comment block or code, must be
+   exactly:
    // LATENCY_DELTA_CYCLES: <integer>
-   where <integer> is how many EXTRA clock cycles of latency your redesigned module takes
-   compared to the original (0 if you preserved the exact same total latency, a positive
-   whole number like 1 or 2 if your design's answer now appears that many cycles later).
-   Never a negative number. This line must be parsed by a script -- do not add extra words,
-   punctuation, or explanation on that line.
-2. Use the gate-by-gate breakdown above to identify WHERE along the path delay accumulates
-   fastest -- that's usually the best place to insert a pipeline register, not just the
-   midpoint by stage count.
-3. If inserting a register adds a cycle of latency, also document this clearly in a comment
-   near the top of the module (in addition to the required first line above).
-4. Output ONLY valid SystemVerilog after that first line -- no markdown fences, no prose
-   outside comments.
+   // ESTIMATED_CRITICAL_PATH_NS: <float>
+   where the first is how many EXTRA clock cycles of latency your design takes compared to
+   the original (0 if unchanged), and the second is your best estimate of the new critical
+   path delay in nanoseconds after your change (a positive number, always less than the
+   original <<PATH_DELAY_NS>> ns). These two lines must be machine-parseable -- no extra
+   words, punctuation, or explanation on either line.
+2. Use the gate-by-gate breakdown to identify WHERE delay accumulates fastest -- that's
+   usually the best place to insert a pipeline register, not just the midpoint by stage
+   count.
+3. If inserting a register adds a cycle of latency, also explain this in a comment near the
+   top of the module.
+4. Output ONLY valid SystemVerilog after the two required lines -- no markdown fences, no
+   prose outside comments.
 5. Preserve the original module name.
 6. Add a comment block summarizing what changed, why, and which part of the gate-level
-   breakdown drove that decision.
+   breakdown drove the decision.
 
-Respond with the required first line, then the complete modified module.
+Respond with the two required lines, then the complete modified module.

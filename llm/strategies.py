@@ -9,6 +9,10 @@ from pathlib import Path
 PROMPTS_DIR = Path(__file__).resolve().parent / "prompts"
 
 STRATEGIES = {
+    "retiming": {
+        "template_file": "retiming_v1.txt",
+        "description": "Relocate existing registers to balance delay, without changing total latency.",
+    },
     "pipelining": {
         "template_file": "pipelining_v1.txt",
         "description": "Insert pipeline registers along the critical path.",
