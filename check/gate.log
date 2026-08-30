@@ -1,0 +1,244 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.68+132 (git sha1 13b43f8c8, Release, GNU /usr/bin/c++ 13.3.0)
+
+-- Executing script file `check/gate.ys' --
+
+1. Executing Verilog-2005 frontend: rtl/candidates/candidate_030.sv
+Parsing SystemVerilog input from `rtl/candidates/candidate_030.sv' to AST representation.
+Generating RTLIL representation for module `\tester1'.
+Successfully finished Verilog frontend.
+
+2. Executing PREP pass.
+
+2.1. Executing HIERARCHY pass (managing design hierarchy).
+
+2.1.1. Analyzing design hierarchy..
+Top module:  \tester1
+
+2.1.2. Analyzing design hierarchy..
+Top module:  \tester1
+Removed 0 unused modules.
+
+2.2. Executing PROC pass (convert processes to netlists).
+
+2.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+2.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 1 switch rules as full_case in process $proc$rtl/candidates/candidate_030.sv:81$23 in module tester1.
+Removed 1 dead cases from process $proc$rtl/candidates/candidate_030.sv:64$13 in module tester1.
+Marked 1 switch rules as full_case in process $proc$rtl/candidates/candidate_030.sv:64$13 in module tester1.
+Marked 1 switch rules as full_case in process $proc$rtl/candidates/candidate_030.sv:41$12 in module tester1.
+Removed a total of 1 dead cases.
+
+2.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 9 redundant assignments.
+Promoted 8 assignments to connections.
+
+2.2.4. Executing PROC_INIT pass (extract init attributes).
+
+2.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+2.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~3 debug messages>
+
+2.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `\tester1.$proc$rtl/candidates/candidate_030.sv:81$23'.
+     1/1: $0\y[31:0]
+Creating decoders for process `\tester1.$proc$rtl/candidates/candidate_030.sv:64$13'.
+     1/1: $1\result_s2[31:0]
+Creating decoders for process `\tester1.$proc$rtl/candidates/candidate_030.sv:41$12'.
+     1/8: $0\op_r[2:0]
+     2/8: $0\key_r[31:0]
+     3/8: $0\data_r[31:0]
+     4/8: $0\rotated_r[31:0]
+     5/8: $0\transformed_r[31:0]
+     6/8: $0\x4_r[31:0]
+     7/8: $0\x3_r[31:0]
+     8/8: $0\x1_r[31:0]
+Creating decoders for process `\tester1.$proc$rtl/candidates/candidate_030.sv:27$1'.
+
+2.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `\tester1.\checksum_s2' from process `\tester1.$proc$rtl/candidates/candidate_030.sv:64$13'.
+No latch inferred for signal `\tester1.\result_s2' from process `\tester1.$proc$rtl/candidates/candidate_030.sv:64$13'.
+No latch inferred for signal `\tester1.\x1_s1' from process `\tester1.$proc$rtl/candidates/candidate_030.sv:27$1'.
+No latch inferred for signal `\tester1.\x2_s1' from process `\tester1.$proc$rtl/candidates/candidate_030.sv:27$1'.
+No latch inferred for signal `\tester1.\x3_s1' from process `\tester1.$proc$rtl/candidates/candidate_030.sv:27$1'.
+No latch inferred for signal `\tester1.\x4_s1' from process `\tester1.$proc$rtl/candidates/candidate_030.sv:27$1'.
+No latch inferred for signal `\tester1.\transformed_s1' from process `\tester1.$proc$rtl/candidates/candidate_030.sv:27$1'.
+No latch inferred for signal `\tester1.\rotated_s1' from process `\tester1.$proc$rtl/candidates/candidate_030.sv:27$1'.
+
+2.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `\tester1.\y' using process `\tester1.$proc$rtl/candidates/candidate_030.sv:81$23'.
+  created $dff cell `$procdff$60' with positive edge clock.
+Creating register for signal `\tester1.\x1_r' using process `\tester1.$proc$rtl/candidates/candidate_030.sv:41$12'.
+  created $dff cell `$procdff$61' with positive edge clock.
+Creating register for signal `\tester1.\x3_r' using process `\tester1.$proc$rtl/candidates/candidate_030.sv:41$12'.
+  created $dff cell `$procdff$62' with positive edge clock.
+Creating register for signal `\tester1.\x4_r' using process `\tester1.$proc$rtl/candidates/candidate_030.sv:41$12'.
+  created $dff cell `$procdff$63' with positive edge clock.
+Creating register for signal `\tester1.\transformed_r' using process `\tester1.$proc$rtl/candidates/candidate_030.sv:41$12'.
+  created $dff cell `$procdff$64' with positive edge clock.
+Creating register for signal `\tester1.\rotated_r' using process `\tester1.$proc$rtl/candidates/candidate_030.sv:41$12'.
+  created $dff cell `$procdff$65' with positive edge clock.
+Creating register for signal `\tester1.\data_r' using process `\tester1.$proc$rtl/candidates/candidate_030.sv:41$12'.
+  created $dff cell `$procdff$66' with positive edge clock.
+Creating register for signal `\tester1.\key_r' using process `\tester1.$proc$rtl/candidates/candidate_030.sv:41$12'.
+  created $dff cell `$procdff$67' with positive edge clock.
+Creating register for signal `\tester1.\op_r' using process `\tester1.$proc$rtl/candidates/candidate_030.sv:41$12'.
+  created $dff cell `$procdff$68' with positive edge clock.
+
+2.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+2.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 1 empty switch in `\tester1.$proc$rtl/candidates/candidate_030.sv:81$23'.
+Removing empty process `tester1.$proc$rtl/candidates/candidate_030.sv:81$23'.
+Found and cleaned up 1 empty switch in `\tester1.$proc$rtl/candidates/candidate_030.sv:64$13'.
+Removing empty process `tester1.$proc$rtl/candidates/candidate_030.sv:64$13'.
+Found and cleaned up 1 empty switch in `\tester1.$proc$rtl/candidates/candidate_030.sv:41$12'.
+Removing empty process `tester1.$proc$rtl/candidates/candidate_030.sv:41$12'.
+Removing empty process `tester1.$proc$rtl/candidates/candidate_030.sv:27$1'.
+Cleaned up 3 empty switches.
+
+2.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tester1.
+<suppressed ~2 debug messages>
+
+2.3. Executing FUTURE pass.
+
+2.4. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tester1.
+
+2.5. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tester1..
+Removed 0 unused cells and 36 unused wires.
+<suppressed ~1 debug messages>
+
+2.6. Executing CHECK pass (checking for obvious problems).
+Checking module tester1...
+Found and reported 0 problems.
+
+2.7. Executing OPT pass (performing simple optimizations).
+
+2.7.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tester1.
+
+2.7.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tester1'.
+Computing hashes of 46 cells of `\tester1'.
+Finding duplicate cells in `\tester1'.
+Removed a total of 0 cells.
+
+2.7.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module \tester1..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Removed 0 multiplexer ports.
+<suppressed ~20 debug messages>
+
+2.7.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module \tester1.
+Performed a total of 0 changes.
+
+2.7.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tester1'.
+Computing hashes of 46 cells of `\tester1'.
+Finding duplicate cells in `\tester1'.
+Removed a total of 0 cells.
+
+2.7.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tester1..
+
+2.7.7. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tester1.
+
+2.7.8. Finished fast OPT passes. (There is nothing left to do.)
+
+2.8. Executing WREDUCE pass (reducing word size of cells).
+Removed top 26 bits (of 32) from port A of cell tester1.$sub$rtl/candidates/candidate_030.sv:37$9 ($sub).
+Removed top 25 bits (of 32) from port Y of cell tester1.$sub$rtl/candidates/candidate_030.sv:37$9 ($sub).
+Removed top 31 bits (of 32) from mux cell tester1.$ternary$rtl/candidates/candidate_030.sv:74$20 ($mux).
+Removed top 1 bits (of 3) from port B of cell tester1.$procmux$32_CMP0 ($eq).
+Removed top 1 bits (of 3) from port B of cell tester1.$procmux$33_CMP0 ($eq).
+Removed top 2 bits (of 3) from port B of cell tester1.$procmux$34_CMP0 ($eq).
+Removed top 31 bits (of 32) from wire tester1.$ternary$rtl/candidates/candidate_030.sv:74$20_Y.
+
+2.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tester1..
+Removed 0 unused cells and 1 unused wires.
+<suppressed ~1 debug messages>
+
+2.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+2.11. Executing OPT pass (performing simple optimizations).
+
+2.11.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module tester1.
+
+2.11.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `\tester1'.
+Computing hashes of 46 cells of `\tester1'.
+Finding duplicate cells in `\tester1'.
+Removed a total of 0 cells.
+
+2.11.3. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tester1..
+
+2.11.4. Finished fast OPT passes.
+
+2.12. Executing SORT pass.
+
+2.13. Printing statistics.
+
+=== tester1 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       51 wires
+     1204 wire bits
+       22 public wires
+      584 public wire bits
+        6 ports
+      101 port bits
+       46 cells
+        4   $add
+        1   $and
+        9   $dff
+        7   $eq
+        1   $gt
+        1   $logic_not
+       10   $mux
+        1   $not
+        2   $or
+        1   $pmux
+        1   $shl
+        1   $shr
+        1   $sub
+        6   $xor
+
+2.14. Executing CHECK pass (checking for obvious problems).
+Checking module tester1...
+Found and reported 0 problems.
+
+3. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \tester1..
+
+4. Executing CHECK pass (checking for obvious problems).
+Checking module tester1...
+Found and reported 0 problems.
+
+5. Executing SETUNDEF pass (replace undef values with defined constants).
+
+6. Executing RTLIL backend.
+Output filename: check/gate.il
+
+End of script. Logfile hash: 402d1d6659, time: 0.02s, user: 0.03s, system: 0.00s, MEM: 22.11 MB peak
+Yosys 0.68+132 (git sha1 13b43f8c8, Release, GNU /usr/bin/c++ 13.3.0)
+Time spent: 27% 5x opt_clean (0 sec), 21% 3x check (0 sec), ...

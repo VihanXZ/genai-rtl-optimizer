@@ -1,0 +1,5 @@
+create_clock -name clk_cpu -period 4.0 [get_ports clk_cpu]
+create_clock -name clk_aes -period 4.0 [get_ports clk_aes]
+create_clock -name clk_fpu -period 4.0 [get_ports clk_fpu]
+create_clock -name clk_mem -period 4.0 [get_ports clk_mem]
+create_clock -name clk_periph -period 4.0 [get_ports clk_periph]

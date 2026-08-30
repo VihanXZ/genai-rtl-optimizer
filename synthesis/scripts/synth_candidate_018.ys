@@ -1,0 +1,7 @@
+read_verilog -sv rtl/candidates/candidate_018.sv
+hierarchy -top dirty_timing_design
+synth -top dirty_timing_design
+dfflibmap -liberty libs/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty libs/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib
+clean
+write_verilog synthesis/netlists/candidate_018_synth.v

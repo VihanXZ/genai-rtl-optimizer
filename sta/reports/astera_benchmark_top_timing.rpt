@@ -1,0 +1,206 @@
+OpenSTA 3.1.0 d1b2b3962c Copyright (c) 2026, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Warning 1171: libs/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib line 23, default_fanout_load is 0.0.
+Startpoint: aes_engine/keymem/_13485_
+            (rising edge-triggered flip-flop clocked by clk_aes)
+Endpoint: aes_engine/keymem/_13753_
+          (rising edge-triggered flip-flop clocked by clk_aes)
+Path Group: clk_aes
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock clk_aes (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ aes_engine/keymem/_13485_/CLK (sky130_fd_sc_hd__dfrtp_1)
+   0.93    0.93 v aes_engine/keymem/_13485_/Q (sky130_fd_sc_hd__dfrtp_1)
+  22.80   23.72 ^ aes_engine/keymem/_08015_/Y (sky130_fd_sc_hd__nor4_1)
+  17.63   41.35 v aes_engine/keymem/_09957_/Y (sky130_fd_sc_hd__nand2_1)
+   1.07   42.43 v aes_engine/keymem/_09960_/X (sky130_fd_sc_hd__mux2_1)
+   0.00   42.43 v aes_engine/keymem/_13753_/D (sky130_fd_sc_hd__dfrtp_1)
+          42.43   data arrival time
+
+   4.00    4.00   clock clk_aes (rise edge)
+   0.00    4.00   clock network delay (ideal)
+   0.00    4.00   clock reconvergence pessimism
+           4.00 ^ aes_engine/keymem/_13753_/CLK (sky130_fd_sc_hd__dfrtp_1)
+  -0.14    3.86   library setup time
+           3.86   data required time
+---------------------------------------------------------
+           3.86   data required time
+         -42.43   data arrival time
+---------------------------------------------------------
+         -38.57   slack (VIOLATED)
+
+
+Startpoint: cpu_core/_16941_
+            (rising edge-triggered flip-flop clocked by clk_cpu)
+Endpoint: cpu_core/_17900_ (rising edge-triggered flip-flop clocked by clk_cpu)
+Path Group: clk_cpu
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock clk_cpu (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ cpu_core/_16941_/CLK (sky130_fd_sc_hd__dfxtp_1)
+  10.99   10.99 ^ cpu_core/_16941_/Q (sky130_fd_sc_hd__dfxtp_1)
+   4.60   15.59 v cpu_core/_09229_/Y (sky130_fd_sc_hd__nor3_1)
+   0.90   16.49 ^ cpu_core/_10132_/Y (sky130_fd_sc_hd__a21oi_1)
+   0.26   16.75 v cpu_core/_10133_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.26   17.00 ^ cpu_core/_10139_/Y (sky130_fd_sc_hd__o221ai_1)
+   0.17   17.17 ^ cpu_core/_10141_/X (sky130_fd_sc_hd__a32o_1)
+   0.04   17.21 v cpu_core/_10142_/Y (sky130_fd_sc_hd__a21oi_1)
+   0.12   17.33 ^ cpu_core/_10143_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.00   17.33 ^ cpu_core/_17900_/D (sky130_fd_sc_hd__dfxtp_1)
+          17.33   data arrival time
+
+   4.00    4.00   clock clk_cpu (rise edge)
+   0.00    4.00   clock network delay (ideal)
+   0.00    4.00   clock reconvergence pessimism
+           4.00 ^ cpu_core/_17900_/CLK (sky130_fd_sc_hd__dfxtp_1)
+  -0.07    3.93   library setup time
+           3.93   data required time
+---------------------------------------------------------
+           3.93   data required time
+         -17.33   data arrival time
+---------------------------------------------------------
+         -13.41   slack (VIOLATED)
+
+
+Startpoint: dsp_filter/_18717_
+            (rising edge-triggered flip-flop clocked by clk_fpu)
+Endpoint: dsp_filter/_18627_
+          (rising edge-triggered flip-flop clocked by clk_fpu)
+Path Group: clk_fpu
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock clk_fpu (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ dsp_filter/_18717_/CLK (sky130_fd_sc_hd__dfrtp_1)
+   0.36    0.36 v dsp_filter/_18717_/Q (sky130_fd_sc_hd__dfrtp_1)
+   0.21    0.56 ^ dsp_filter/_13840_/Y (sky130_fd_sc_hd__xnor2_1)
+   0.15    0.71 v dsp_filter/_13869_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.40    1.11 v dsp_filter/_13889_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    1.50 v dsp_filter/_13910_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    1.89 v dsp_filter/_13931_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    2.29 v dsp_filter/_13952_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    2.68 v dsp_filter/_13973_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    3.07 v dsp_filter/_13994_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    3.46 v dsp_filter/_14015_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    3.86 v dsp_filter/_14036_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    4.25 v dsp_filter/_14057_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    4.64 v dsp_filter/_14078_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    5.03 v dsp_filter/_14099_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    5.42 v dsp_filter/_14120_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    5.82 v dsp_filter/_14141_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    6.21 v dsp_filter/_14162_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    6.60 v dsp_filter/_14183_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    6.99 v dsp_filter/_14204_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    7.39 v dsp_filter/_14225_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    7.78 v dsp_filter/_14246_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    8.17 v dsp_filter/_14267_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    8.56 v dsp_filter/_14288_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    8.95 v dsp_filter/_14309_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    9.35 v dsp_filter/_14330_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    9.74 v dsp_filter/_14351_/X (sky130_fd_sc_hd__maj3_1)
+   0.39   10.13 v dsp_filter/_14372_/X (sky130_fd_sc_hd__maj3_1)
+   0.39   10.52 v dsp_filter/_14393_/X (sky130_fd_sc_hd__maj3_1)
+   0.39   10.91 v dsp_filter/_14416_/X (sky130_fd_sc_hd__maj3_1)
+   0.24   11.16 ^ dsp_filter/_14418_/Y (sky130_fd_sc_hd__xnor2_1)
+   0.38   11.54 v dsp_filter/_14420_/X (sky130_fd_sc_hd__xnor3_1)
+   0.22   11.76 v dsp_filter/_14423_/X (sky130_fd_sc_hd__xnor3_1)
+   0.39   12.15 v dsp_filter/_14426_/X (sky130_fd_sc_hd__maj3_1)
+   0.39   12.54 v dsp_filter/_14446_/X (sky130_fd_sc_hd__maj3_1)
+   0.39   12.93 v dsp_filter/_14463_/X (sky130_fd_sc_hd__maj3_1)
+   0.38   13.31 v dsp_filter/_14480_/X (sky130_fd_sc_hd__maj3_1)
+   0.26   13.57 ^ dsp_filter/_14499_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.25   13.83 ^ dsp_filter/_14510_/X (sky130_fd_sc_hd__maj3_1)
+   0.08   13.90 v dsp_filter/_14516_/Y (sky130_fd_sc_hd__xnor2_1)
+   0.00   13.90 v dsp_filter/_18627_/D (sky130_fd_sc_hd__dfrtp_1)
+          13.90   data arrival time
+
+   4.00    4.00   clock clk_fpu (rise edge)
+   0.00    4.00   clock network delay (ideal)
+   0.00    4.00   clock reconvergence pessimism
+           4.00 ^ dsp_filter/_18627_/CLK (sky130_fd_sc_hd__dfrtp_1)
+  -0.13    3.87   library setup time
+           3.87   data required time
+---------------------------------------------------------
+           3.87   data required time
+         -13.90   data arrival time
+---------------------------------------------------------
+         -10.03   slack (VIOLATED)
+
+
+Startpoint: mem_ctrl/_289_ (rising edge-triggered flip-flop clocked by clk_mem)
+Endpoint: mem_ctrl/_252_ (rising edge-triggered flip-flop clocked by clk_mem)
+Path Group: clk_mem
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock clk_mem (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ mem_ctrl/_289_/CLK (sky130_fd_sc_hd__dfrtp_1)
+   0.41    0.41 v mem_ctrl/_289_/Q (sky130_fd_sc_hd__dfrtp_1)
+   0.42    0.82 v mem_ctrl/_157_/X (sky130_fd_sc_hd__or3b_1)
+   1.43    2.26 ^ mem_ctrl/_158_/Y (sky130_fd_sc_hd__nor2_1)
+   0.39    2.64 v mem_ctrl/_159_/X (sky130_fd_sc_hd__mux2_1)
+   0.00    2.64 v mem_ctrl/_252_/D (sky130_fd_sc_hd__dfrtp_1)
+           2.64   data arrival time
+
+   4.00    4.00   clock clk_mem (rise edge)
+   0.00    4.00   clock network delay (ideal)
+   0.00    4.00   clock reconvergence pessimism
+           4.00 ^ mem_ctrl/_252_/CLK (sky130_fd_sc_hd__dfrtp_1)
+  -0.13    3.87   library setup time
+           3.87   data required time
+---------------------------------------------------------
+           3.87   data required time
+          -2.64   data arrival time
+---------------------------------------------------------
+           1.23   slack (MET)
+
+
+Startpoint: uart_transmitter/_161_
+            (rising edge-triggered flip-flop clocked by clk_periph)
+Endpoint: uart_transmitter/_164_
+          (rising edge-triggered flip-flop clocked by clk_periph)
+Path Group: clk_periph
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock clk_periph (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ uart_transmitter/_161_/CLK (sky130_fd_sc_hd__dfrtp_1)
+   0.36    0.36 v uart_transmitter/_161_/Q (sky130_fd_sc_hd__dfrtp_1)
+   0.49    0.86 v uart_transmitter/_095_/X (sky130_fd_sc_hd__or4b_1)
+   0.37    1.22 v uart_transmitter/_096_/X (sky130_fd_sc_hd__or3_1)
+   0.46    1.68 ^ uart_transmitter/_097_/Y (sky130_fd_sc_hd__o22ai_1)
+   0.21    1.89 ^ uart_transmitter/_118_/Y (sky130_fd_sc_hd__o21bai_1)
+   0.15    2.04 ^ uart_transmitter/_121_/X (sky130_fd_sc_hd__a22o_1)
+   0.00    2.04 ^ uart_transmitter/_164_/D (sky130_fd_sc_hd__dfrtp_1)
+           2.04   data arrival time
+
+   4.00    4.00   clock clk_periph (rise edge)
+   0.00    4.00   clock network delay (ideal)
+   0.00    4.00   clock reconvergence pessimism
+           4.00 ^ uart_transmitter/_164_/CLK (sky130_fd_sc_hd__dfrtp_1)
+  -0.07    3.93   library setup time
+           3.93   data required time
+---------------------------------------------------------
+           3.93   data required time
+          -2.04   data arrival time
+---------------------------------------------------------
+           1.90   slack (MET)
+
+
+wns max -38.57

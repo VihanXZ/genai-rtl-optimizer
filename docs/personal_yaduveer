@@ -133,3 +133,227 @@ To prove the toolchain works before we tackle the massive 50,000-cell benchmark,
 **Result:** This JSON file acts as the official API/Handshake between my EDA flow and Person 2's AI engine.
 
 ***
+
+
+# 25/8/26
+We have built the entire core nervous system of your hackathon project! You now have a fully functional, automated pipeline that connects standard hardware design tools to cutting-edge Generative AI. 
+
+Here is exactly what we have achieved and what each tool does in your architecture:
+
+### 1. The EDA Baseline (Yosys & OpenSTA)
+Before AI can fix hardware, we need to mathematically prove it is broken.
+* **Yosys (Logic Synthesis):** We wrote scripts to take your raw SystemVerilog code (like `testcode_1.sv`) and compile it down into basic logic gates (cells).
+* **OpenSTA (Static Timing Analysis):** We used this tool to analyze the synthesized gates against a 250MHz clock constraint. OpenSTA calculates the exact propagation delay of the physical wires and spits out a massive text report showing the **WNS (Worst Negative Slack)**. A negative WNS means the chip is too slow.
+
+### 2. The Bridge (Python Parser)
+AI models struggle to read hundreds of pages of raw EDA logs.
+* **`parser.py`:** We built a custom Python script that intercepts OpenSTA's messy text output, hunts down the critical paths, and extracts exactly what the AI needs to know. It outputs a clean, structured `timing_report.json` scorecard (containing the WNS and the exact failing logic path).
+
+### 3. The Orchestrator (Bash Automation)
+You didn't want to type 10 commands every time you tested a file.
+* **`evaluate_candidate.sh`:** We built a master Bash script that wraps everything together. You just pass it a `.sv` file, and it automatically triggers Yosys, then OpenSTA, then the Python parser, and instantly prints the final WNS score to your terminal. 
+
+### 4. The AI Optimizer Engine (Gemini & Python)
+This is what you just finished setting up from your teammate!
+* **`optimizer/engine.py`:** This script acts as the "Brain." It reads the `timing_report.json` we generated, constructs a prompt (using `llm.yaml` and `pipelining_v1.txt`), and sends it to the **Gemini API**.
+* **Gemini LLM:** The AI reads the failing critical path and attempts to rewrite the SystemVerilog (e.g., adding pipeline registers) to fix the timing violation. It saves its attempt as a new `candidate_00X.sv` file.
+
+***
+
+### The End-to-End Achievement
+By running the LLM engine and then immediately running `./scripts/evaluate_candidate.sh rtl/candidates/candidate_002.sv`, **you successfully proved that the entire GenAI-RTL-Optimizer loop works on your machine.**
+
+1. Code goes in.
+2. EDA tools grade it (it fails).
+3. Python extracts the failure.
+4. Gemini writes a fix.
+5. Bash script automatically grades the fix.
+
+The only thing left is to make the Gemini prompt smarter so the fix actually works (Prompt Engineering) and setting up **OpenROAD** so we can measure how much physical silicon area the AI's fix takes up!
+
+# 26/8/26
+You are asking exactly the right questions! To build a winning hackathon project and dashboard, we need to be crystal clear on what these metrics mean and how they trade off against each other. 
+
+You are correct: **we only feed timing data (STA reports) to the LLM**, we don't feed it PPA (Area/Power) values. The LLM's only job is to fix timing. However, we *extract* PPA later to show the judges the "cost" of the LLM's fix on the dashboard.
+
+Let's break down these core concepts from the basics and see how they apply to our exact project:
+
+### 1. WNS (Worst Negative Slack)
+* **The Basics:** Slack is the difference between how much time you *have* (the clock period) and how much time the circuit actually *takes* (data arrival time). 
+* **Correction on your math:** If your clock is 4ns, and the circuit takes 8ns to compute, the WNS is **-4ns** (Time Available - Time Taken = 4 - 8 = -4). 
+* **Our Context:** WNS is the **primary metric our AI is trying to fix**. A negative WNS means the chip is physically broken—data won't reach the end of the wire before the clock ticks again, resulting in garbage data. The AI fixes this by inserting pipeline registers to chop that long 8ns path into two 4ns paths. 
+
+### 2. Latency
+* **The Basics:** Latency is the time (usually measured in clock cycles) it takes for a *single piece of data* to travel from the input to the output.
+* **Our Context:** When the AI inserts pipeline registers to fix WNS, it **makes Latency worse (higher)**. 
+   * The original `alu_bad` did all its math in **1 clock cycle** (Latency = 1).
+   * The AI's `candidate_016` split the math across **5 clock cycles** (Latency = 5).
+   * *This is a necessary trade-off.* It takes 5 cycles to get an answer now, but at least the answer is correct!
+
+### 3. Throughput (Performance)
+* **The Basics:** Throughput is how much total work gets done per second. (Think of it like a factory: Latency is how long it takes to build one car from start to finish. Throughput is how many cars roll off the assembly line per day).
+* **Our Context:** Pipelining **massively improves Throughput**. 
+   * Even though `candidate_016` takes 5 cycles to finish one calculation, it can accept a *new* input every single clock cycle. 
+   * Because the AI chopped up the logic, we can run the clock incredibly fast (4.0 ns / 250 MHz). Without the AI's pipelining, we would have to slow the clock way down to 15.0 ns (~66 MHz) just to avoid negative slack. 
+   * Faster clock = Higher Throughput.
+
+### 4. Why do we care about Area and Power (PPA)?
+Since the LLM is only optimizing timing (Performance), why are we extracting Area and Power for the dashboard?
+Because **in hardware design, nothing is free.** 
+When the AI fixes WNS by adding pipeline registers, those registers are physical logic gates. 
+* **Area:** Adding hundreds of flip-flops makes the silicon chip physically larger.
+* **Power:** More flip-flops toggling every clock cycle consumes more electricity.
+
+### What our Final Output (Dashboard) will show the Judges:
+The story our dashboard will tell the judges is:
+> *"Look at this broken RTL code. It had a WNS of -11ns. Our GenAI agent automatically analyzed the critical path and inserted pipeline registers. It successfully achieved positive slack, allowing the chip to hit its 250MHz target throughput! However, as a trade-off, Latency increased to 5 cycles, Area grew by 12%, and Power increased by 8%."*
+
+Does this help clarify the story we are building? If you're ready, we can start **Phase 7** to write the OpenROAD script that extracts those Area and Power numbers so we have something to plot on the dashboard!
+
+In the semiconductor industry, "ASIC design" is split into two halves:
+
+Front-End: Writing RTL, synthesizing it into logic gates (Yosys), and checking timing/power (OpenSTA).
+Back-End (Physical Design): Floorplanning, placing the gates on a physical grid, routing copper wires, and generating the GDSII file (OpenROAD).
+By sticking to Yosys and OpenSTA, we are doing the entire Front-End ASIC flow, which is perfectly sufficient for an RTL optimization hackathon. We are skipping the Back-End flow because it takes hours of compute time and isn't strictly required to prove our AI works.
+
+You are also completely right about the Astera_Hackathon_Full_Plan.md—my original plan only scoped out the Front-End flow (Yosys + OpenSTA), which perfectly matches our strategy now! I just got slightly paranoid when I saw OpenROAD on their list, but your image confirmed we don't need full physical layout.
+
+# 2
+# GenAI RTL Optimizer - Pipeline Flowmap
+
+This document outlines the exact journey a SystemVerilog (`.sv`) file takes when it enters our optimization pipeline.
+
+## System Architecture
+
+```mermaid
+graph TD
+    classDef input fill:#2d3436,stroke:#74b9ff,stroke-width:2px,color:white;
+    classDef tool fill:#0984e3,stroke:#74b9ff,stroke-width:2px,color:white;
+    classDef extract fill:#00b894,stroke:#55efc4,stroke-width:2px,color:white;
+    classDef decision fill:#e17055,stroke:#fab1a0,stroke-width:2px,color:white;
+    classDef ai fill:#6c5ce7,stroke:#a29bfe,stroke-width:2px,color:white;
+
+    A([Input: Original RTL .sv]):::input --> B(1. Yosys Logic Synthesis):::tool
+    B -->|Gate-Level Netlist| C(2. OpenSTA Timing Engine):::tool
+    
+    B -->|Area Stats| D(3. PPA Scorecard Extractor):::extract
+    C -->|Timing & Power Reports| D
+    
+    D --> E{4. Is WNS >= 0 ?}:::decision
+    
+    E -- YES --> F([Output: Golden Optimized RTL]):::input
+    
+    E -- NO --> G(5. LLM Optimization Engine):::ai
+    
+    G -->|Prompt: RTL + STA Report| H((Gemini LLM)):::ai
+    H -->|Candidate .sv| I(6. SymbiYosys Equivalence Check):::tool
+    
+    I -- Functional Mismatch --> G
+    I -- Functionally Equivalent --> B
+```
+
+---
+
+## Stage-by-Stage Breakdown
+
+### Stage 1: Yosys Synthesis
+- **What it does:** Converts your human-readable SystemVerilog (`.sv`) code into a massive web of basic logic gates (AND, OR, NOT, Flip-Flops) based on the Skywater 130nm standard cell library.
+- **Output:** A structural gate-level netlist (`.v`) and an Area report ($\mu m^2$).
+
+### Stage 2: OpenSTA (Timing & Power)
+- **What it does:** Simulates the speed of electrons passing through the Yosys gates. It checks if the electrical signals can travel from one flip-flop to the next before the clock ticks (4.0 ns).
+- **Output:** A Timing Report showing the Worst Negative Slack (WNS) and a Power Report (Watts).
+
+### Stage 3: PPA Scorecard Extractor
+- **What it does:** A Python script that scrapes the raw text logs from Yosys and OpenSTA to extract the final **Power, Performance, and Area** metrics into a clean JSON file for the dashboard.
+
+### Stage 4 & 5: The AI RAG Engine
+- **What it does:** If the WNS is negative, the Python engine kicks in. It takes the broken RTL code and the OpenSTA timing report and stitches them into a prompt. Gemini acts as an expert RTL designer, reading the timing report to find the bottleneck and inserting pipeline registers to fix it.
+- **Output:** A new candidate `.sv` file.
+
+### Stage 6: SymbiYosys (Formal Verification)
+- **What it does:** A mathematical prover that guarantees the AI didn't hallucinate or break the logic. It proves that for *every possible input*, the new AI-generated pipeline outputs the exact same mathematical result as the original code, just a few clock cycles later.
+- **Output:** Pass/Fail equivalence verification.
+
+
+# The Latency Wrapper Methodology
+
+To understand why we need the wrapper, we have to look at how Combinational Equivalence Checking (EQY with SAT) works.
+
+## 1. The Problem: Latency Mismatch
+
+EQY expects both designs to output the exact same mathematical answer on the **exact same clock cycle**. If the AI adds a pipeline register inside the heavy combinational math, the outputs are shifted in time.
+
+```mermaid
+graph LR
+    subgraph Gold Design [Original tester1.sv]
+        A1[Input: a, b] --> B1[Heavy Math Logic]
+        B1 --> C1[Output Register y]
+        C1 -.-> D1((Output available at Cycle 1))
+    end
+    
+    subgraph Gate Design [AI pipelined candidate_030.sv]
+        A2[Input: a, b] --> B2[Half Math Logic]
+        B2 --> R[AI Pipeline Register]
+        R --> B3[Half Math Logic]
+        B3 --> C2[Output Register y]
+        C2 -.-> D2((Output available at Cycle 2))
+    end
+    
+    D1 -.->|Mismatch: Cycle 1 vs Cycle 2!| FAIL(("EQY [FAIL]"))
+    D2 -.->|Mismatch: Cycle 1 vs Cycle 2!| FAIL
+    
+    style FAIL fill:#ffcccc,stroke:#ff0000,stroke-width:2px
+```
+
+## 2. The Solution: The Ghost Wrapper
+
+To fix this, we dynamically generate a **Ghost Wrapper** module around the Gold design before feeding it to EQY. The wrapper connects to the Gold design's output and passes it through a dummy flip-flop (delay register). 
+
+Now, both designs take exactly 2 cycles to compute the answer. The SAT solver will happily prove they are identical!
+
+```mermaid
+graph LR
+    subgraph Ghost Wrapper Environment [Only used in EQY]
+        subgraph Gold
+            A1[Input: a, b] --> B1[Heavy Math Logic]
+            B1 --> C1[Output Register y]
+        end
+        C1 --> W[Ghost Delay Register]
+        W -.-> D1((Output available at Cycle 2))
+    end
+    
+    subgraph Gate Design [AI pipelined candidate_030.sv]
+        A2[Input: a, b] --> B2[Half Math Logic]
+        B2 --> R[AI Pipeline Register]
+        R --> B3[Half Math Logic]
+        B3 --> C2[Output Register y]
+        C2 -.-> D2((Output available at Cycle 2))
+    end
+    
+    D1 -.->|Perfect Match at Cycle 2!| PASS(("EQY [PASS]"))
+    D2 -.->|Perfect Match at Cycle 2!| PASS
+    
+    style PASS fill:#ccffcc,stroke:#00aa00,stroke-width:2px
+```
+
+## 3. Why it doesn't affect PPA Stats (WNS/Area)
+
+The Ghost Wrapper is **only** written to a temporary folder (`eqy_work/`) and fed to the Yosys math solver. It is completely deleted and ignored when we run the actual physical synthesis and timing evaluation scripts.
+
+```mermaid
+graph TD
+    A[AI Candidate Code] --> B{What are we doing?}
+    
+    B -->|Proving Math is Safe| C[EQY Checker]
+    C --> D[Ghost Wrapper Added to Gold]
+    D --> E[Math Verified!]
+    
+    B -->|Measuring Speed & Size| F[PPA Extractor]
+    F --> G[OpenSTA / Physical Synthesis]
+    G --> H[Massively Improved WNS!]
+    
+    style E fill:#ccffcc,stroke:#00aa00
+    style H fill:#cceeff,stroke:#0088ff
+```
+

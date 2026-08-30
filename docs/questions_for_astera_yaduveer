@@ -1,1 +1,3 @@
 ### 1) For the 50K-cell benchmark requirement, does Astera Labs provide a baseline RTL repository for us to use, or are we expected to source/integrate our own open-source IP blocks (like a RISC-V SoC or combined cores) as long as it meets the 5-clock domain, CDC, and clock divider requirements? 
+
+## 2) Hey Astera team, we have successfully built our GenAI engine to pipeline the RTL and improve WNS. However, because pipelining changes the latency of the outputs, standard Combinational EQY throws a latency mismatch. Is it acceptable for our submission to dynamically generate a latency-matching wrapper around the Gold RTL to prove equivalence, or do you strictly expect us to use full Sequential Equivalence Checking (SEC) with sby?

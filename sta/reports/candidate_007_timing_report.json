@@ -1,0 +1,8 @@
+{
+  "$schema": "timing_report_v1",
+  "module_name": "generic_module",
+  "wns_ns": 0.0,
+  "num_violations": 0,
+  "critical_paths": [],
+  "timestamp": "2026-08-25T15:03:02.539447+00:00"
+}

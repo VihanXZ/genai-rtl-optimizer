@@ -1,0 +1,11 @@
+[gold]
+read_verilog -sv rtl/testcases/tester1.sv
+prep -top tester1
+
+[gate]
+read_verilog -sv rtl/candidates/candidate_030.sv
+prep -top tester1
+
+[strategy simple]
+use sat
+depth 10

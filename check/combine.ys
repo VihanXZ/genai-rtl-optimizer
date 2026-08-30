@@ -1,0 +1,11 @@
+plugin -i /usr/local/bin/../share/yosys/plugins/eqy_combine.so
+read_rtlil check/gold.il
+uniquify
+hierarchy
+design -stash gold
+read_rtlil check/gate_recoded.il
+uniquify
+hierarchy
+design -stash gate
+eqy_combine -gold_ids check/gold.ids -gate_ids check/gate_recoded.ids
+write_rtlil check/combined.il

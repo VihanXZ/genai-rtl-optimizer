@@ -1,0 +1,7 @@
+read_verilog -sv rtl/candidates/candidate_016.sv
+hierarchy -top timing_bad
+synth -top timing_bad
+dfflibmap -liberty libs/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty libs/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib
+clean
+write_verilog synthesis/netlists/candidate_016_synth.v

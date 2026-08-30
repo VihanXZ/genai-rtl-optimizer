@@ -1,0 +1,7 @@
+# [*] gold-match *
+tester1 clk clk
+tester1 data data
+tester1 key key
+tester1 op op
+tester1 rst rst
+tester1 y y

@@ -1,0 +1,81 @@
+OpenSTA 3.1.0 d1b2b3962c Copyright (c) 2026, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Warning 1171: libs/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib line 23, default_fanout_load is 0.0.
+Startpoint: _2288_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: _2334_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ _2288_/CLK (sky130_fd_sc_hd__dfxtp_1)
+   0.44    0.44 ^ _2288_/Q (sky130_fd_sc_hd__dfxtp_1)
+   0.31    0.75 ^ _1202_/X (sky130_fd_sc_hd__and2_0)
+   0.42    1.17 v _1257_/X (sky130_fd_sc_hd__xnor3_1)
+   0.42    1.60 v _1307_/X (sky130_fd_sc_hd__xnor3_1)
+   0.43    2.03 v _1363_/X (sky130_fd_sc_hd__xnor3_1)
+   0.16    2.20 v _1365_/Y (sky130_fd_sc_hd__xnor2_1)
+   0.42    2.62 v _1369_/X (sky130_fd_sc_hd__maj3_1)
+   0.44    3.06 v _1371_/X (sky130_fd_sc_hd__maj3_1)
+   0.45    3.52 v _1372_/X (sky130_fd_sc_hd__maj3_1)
+   0.46    3.98 v _1374_/X (sky130_fd_sc_hd__maj3_1)
+   0.46    4.44 v _1376_/X (sky130_fd_sc_hd__maj3_1)
+   0.46    4.90 v _1378_/X (sky130_fd_sc_hd__maj3_1)
+   0.46    5.36 v _1380_/X (sky130_fd_sc_hd__maj3_1)
+   0.46    5.82 v _1382_/X (sky130_fd_sc_hd__maj3_1)
+   0.46    6.28 v _1384_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    6.67 v _1410_/X (sky130_fd_sc_hd__xnor3_1)
+   0.41    7.09 v _1472_/X (sky130_fd_sc_hd__xnor3_1)
+   0.40    7.49 ^ _1536_/Y (sky130_fd_sc_hd__xnor2_1)
+   0.46    7.95 v _1601_/X (sky130_fd_sc_hd__xnor3_1)
+   0.44    8.39 v _1677_/X (sky130_fd_sc_hd__xnor3_1)
+   0.39    8.78 v _1730_/X (sky130_fd_sc_hd__xnor3_1)
+   0.31    9.09 ^ _1731_/X (sky130_fd_sc_hd__xor2_1)
+   0.44    9.54 v _1805_/X (sky130_fd_sc_hd__xor3_1)
+   0.41    9.95 v _1903_/X (sky130_fd_sc_hd__xnor3_1)
+   0.39   10.33 v _1976_/X (sky130_fd_sc_hd__xnor3_1)
+   0.39   10.72 v _2019_/X (sky130_fd_sc_hd__xnor3_1)
+   0.17   10.89 v _2022_/X (sky130_fd_sc_hd__xor2_1)
+   0.37   11.26 v _2052_/X (sky130_fd_sc_hd__xnor3_1)
+   0.37   11.63 v _2087_/X (sky130_fd_sc_hd__xnor3_1)
+   0.37   12.00 v _2116_/X (sky130_fd_sc_hd__maj3_1)
+   0.39   12.40 v _2117_/X (sky130_fd_sc_hd__maj3_1)
+   0.39   12.79 v _2119_/X (sky130_fd_sc_hd__maj3_1)
+   0.39   13.18 v _2121_/X (sky130_fd_sc_hd__maj3_1)
+   0.36   13.55 v _2128_/X (sky130_fd_sc_hd__xor3_1)
+   0.14   13.68 v _2129_/Y (sky130_fd_sc_hd__nor2b_1)
+   0.14   13.82 ^ _2131_/Y (sky130_fd_sc_hd__nor3_1)
+   0.00   13.82 ^ _2334_/D (sky130_fd_sc_hd__dfxtp_1)
+          13.82   data arrival time
+
+   4.00    4.00   clock clk (rise edge)
+   0.00    4.00   clock network delay (ideal)
+   0.00    4.00   clock reconvergence pessimism
+           4.00 ^ _2334_/CLK (sky130_fd_sc_hd__dfxtp_1)
+  -0.08    3.92   library setup time
+           3.92   data required time
+---------------------------------------------------------
+           3.92   data required time
+         -13.82   data arrival time
+---------------------------------------------------------
+          -9.90   slack (VIOLATED)
+
+
+wns max -9.90
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power (Watts)
+----------------------------------------------------------------
+Sequential             1.26e-03   3.37e-05   6.67e-10   1.30e-03   0.8%
+Combinational          9.01e-02   6.26e-02   5.86e-09   1.53e-01  99.2%
+Clock                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  9.14e-02   6.26e-02   6.52e-09   1.54e-01 100.0%
+                          59.3%      40.7%       0.0%
