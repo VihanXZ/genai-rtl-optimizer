@@ -1,0 +1,47 @@
+OpenSTA 3.1.0 d1b2b3962c Copyright (c) 2026, Parallax Software, Inc.
+License GPLv3: GNU GPL version 3 <http://gnu.org/licenses/gpl.html>
+
+This is free software, and you are free to change and redistribute it
+under certain conditions; type `show_copying' for details. 
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show_warranty'.
+Warning 1171: libs/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib line 23, default_fanout_load is 0.0.
+Startpoint: _278_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: _265_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: max
+
+  Delay    Time   Description
+---------------------------------------------------------
+   0.00    0.00   clock clk (rise edge)
+   0.00    0.00   clock network delay (ideal)
+   0.00    0.00 ^ _278_/CLK (sky130_fd_sc_hd__dfrtp_1)
+   0.36    0.36 v _278_/Q (sky130_fd_sc_hd__dfrtp_1)
+   0.15    0.50 ^ _115_/Y (sky130_fd_sc_hd__nor2_1)
+   0.15    0.65 v _120_/Y (sky130_fd_sc_hd__o21ai_0)
+   0.40    1.05 v _123_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    1.45 v _126_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    1.84 v _129_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    2.23 v _132_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    2.62 v _135_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    3.01 v _138_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    3.41 v _141_/X (sky130_fd_sc_hd__maj3_1)
+   0.39    3.80 v _144_/X (sky130_fd_sc_hd__maj3_1)
+   0.37    4.17 v _147_/X (sky130_fd_sc_hd__maj3_1)
+   0.13    4.30 v _149_/Y (sky130_fd_sc_hd__xnor2_1)
+   0.00    4.30 v _265_/D (sky130_fd_sc_hd__dfrtp_1)
+           4.30   data arrival time
+
+   4.00    4.00   clock clk (rise edge)
+   0.00    4.00   clock network delay (ideal)
+   0.00    4.00   clock reconvergence pessimism
+           4.00 ^ _265_/CLK (sky130_fd_sc_hd__dfrtp_1)
+  -0.12    3.88   library setup time
+           3.88   data required time
+---------------------------------------------------------
+           3.88   data required time
+          -4.30   data arrival time
+---------------------------------------------------------
+          -0.42   slack (VIOLATED)
+
+
+wns max -0.42

@@ -1,37 +1,7 @@
-# Astera-V Benchmark Synthesis Script
-# Reads all RTL, synthesizes to Sky130, writes netlist
-
-# 1. Read all Verilog/SystemVerilog files
-read_verilog rtl/benchmark/picorv32.v
-read_verilog rtl/benchmark/aes.v
-read_verilog rtl/benchmark/aes_core.v
-read_verilog rtl/benchmark/aes_encipher_block.v
-read_verilog rtl/benchmark/aes_decipher_block.v
-read_verilog rtl/benchmark/aes_key_mem.v
-read_verilog rtl/benchmark/aes_sbox.v
-read_verilog rtl/benchmark/aes_inv_sbox.v
-read_verilog -sv rtl/benchmark/clock_divider.sv
-read_verilog -sv rtl/benchmark/async_fifo.sv
-read_verilog -sv rtl/benchmark/fir_filter.sv
-read_verilog -sv rtl/benchmark/sram_controller.sv
-read_verilog -sv rtl/benchmark/uart_tx.sv
-read_verilog -sv rtl/benchmark/astera_benchmark_top.sv
-
-# 2. Set the top-level module
+read_verilog -sv rtl/benchmark/*.v rtl/benchmark/*.sv
 hierarchy -top astera_benchmark_top
-
-# 3. Synthesize
 synth -top astera_benchmark_top
-
-# 4. Map to Sky130 standard cells
 dfflibmap -liberty libs/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib
 abc -liberty libs/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib
-
-# 5. Clean up
 clean
-
-# 6. Print statistics (cell count, area)
-stat -liberty libs/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib
-
-# 7. Write the netlist
-write_verilog synthesis/netlists/astera_benchmark_synth.v
+write_verilog synthesis/netlists/astera_benchmark_top_synth.v

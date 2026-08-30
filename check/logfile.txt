@@ -1,0 +1,22 @@
+EQY 19:43:06 [check] read_gold: starting process "yosys -ql check/gold.log check/gold.ys"
+EQY 19:43:06 [check] read_gold: finished (returncode=0)
+EQY 19:43:06 [check] read_gate: starting process "yosys -ql check/gate.log check/gate.ys"
+EQY 19:43:06 [check] read_gate: finished (returncode=0)
+EQY 19:43:06 [check] combine: starting process "yosys -ql check/combine.log check/combine.ys"
+EQY 19:43:06 [check] combine: finished (returncode=0)
+EQY 19:43:06 [check] partition: starting process "cd check; yosys -ql partition.log partition.ys"
+EQY 19:43:07 [check] partition: finished (returncode=0)
+EQY 19:43:07 [check] run: starting process "make -C check -f strategies.mk"
+EQY 19:43:07 [check] run: make: Entering directory '/home/yaduub/genai-rtl-optimizer/check'
+EQY 19:43:07 [check] run: Running strategy 'simple' on 'tester1.y'..
+EQY 19:43:15 [check] run: Could not prove equivalence of partition 'tester1.y' using strategy 'simple': equivalence unknown
+EQY 19:43:15 [check] run: make -f strategies.mk summary
+EQY 19:43:15 [check] run: make[1]: Entering directory '/home/yaduub/genai-rtl-optimizer/check'
+EQY 19:43:15 [check] run: make[1]: Leaving directory '/home/yaduub/genai-rtl-optimizer/check'
+EQY 19:43:15 [check] run: make: Leaving directory '/home/yaduub/genai-rtl-optimizer/check'
+EQY 19:43:15 [check] run: finished (returncode=0)
+EQY 19:43:15 [check] Warning: Failed to prove equivalence for 1/1 partitions:
+EQY 19:43:15 [check] Failed to prove equivalence of partition tester1.y
+EQY 19:43:15 [check] summary: Elapsed clock time [H:MM:SS (secs)]: 0:00:08 (8)
+EQY 19:43:15 [check] summary: Elapsed process time [H:MM:SS (secs)]: 0:00:08 (8)
+EQY 19:43:15 [check] DONE (FAIL, rc=2)

@@ -1,0 +1,60 @@
+{
+  "$schema": "timing_report_v1",
+  "module_name": "generic_module",
+  "wns_ns": 0.0,
+  "num_violations": 0,
+  "critical_paths": [
+    {
+      "startpoint": "_41_",
+      "endpoint": "_40_",
+      "clock_domain": "clk",
+      "slack_ns": 0.0,
+      "stages": [
+        {
+          "delay_ns": 0.0,
+          "arrival_ns": 0.0,
+          "pin": "_41_/CLK",
+          "cell": "sky130_fd_sc_hd__dfxtp_1"
+        },
+        {
+          "delay_ns": 0.29,
+          "arrival_ns": 0.29,
+          "pin": "_41_/Q",
+          "cell": "sky130_fd_sc_hd__dfxtp_1"
+        },
+        {
+          "delay_ns": 0.21,
+          "arrival_ns": 0.5,
+          "pin": "_20_/Y",
+          "cell": "sky130_fd_sc_hd__xnor2_1"
+        },
+        {
+          "delay_ns": 0.16,
+          "arrival_ns": 0.66,
+          "pin": "_29_/Y",
+          "cell": "sky130_fd_sc_hd__xnor2_1"
+        },
+        {
+          "delay_ns": 0.09,
+          "arrival_ns": 0.74,
+          "pin": "_30_/Y",
+          "cell": "sky130_fd_sc_hd__a21oi_1"
+        },
+        {
+          "delay_ns": 0.1,
+          "arrival_ns": 0.84,
+          "pin": "_31_/X",
+          "cell": "sky130_fd_sc_hd__o21a_1"
+        },
+        {
+          "delay_ns": 0.0,
+          "arrival_ns": 0.84,
+          "pin": "_40_/D",
+          "cell": "sky130_fd_sc_hd__dfxtp_1"
+        }
+      ],
+      "path_depth": 7
+    }
+  ],
+  "timestamp": "2026-08-25T21:37:20.715953+00:00"
+}

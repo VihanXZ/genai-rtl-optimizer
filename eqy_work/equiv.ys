@@ -1,0 +1,20 @@
+design -reset
+read_verilog -sv rtl/testcases/bad_counter.sv
+prep -top dirty_timing_design
+rename dirty_timing_design gold
+design -save gold
+
+design -reset
+read_verilog -sv rtl/testcases/bad_counter.sv
+prep -top dirty_timing_design
+rename dirty_timing_design gate
+design -save gate
+
+design -reset
+design -copy-from gold -as gold gold
+design -copy-from gate -as gate gate
+
+equiv_make gold gate equiv
+hierarchy -top equiv
+equiv_simple
+equiv_status -assert

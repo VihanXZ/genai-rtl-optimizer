@@ -1,0 +1,563 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2026  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.68+132 (git sha1 13b43f8c8, Release, GNU /usr/bin/c++ 13.3.0)
+
+-- Executing script file `partition.ys' --
+
+1. Executing RTLIL frontend.
+Input filename: combined.il
+
+2. Executing INSBUF pass (insert buffer cells for connected wires).
+Add gate.tester1/$auto$insbuf.cc:97:execute$113: 1'0 -> $auto$wreduce.cc:513:run$71 [1]
+Add gate.tester1/$auto$insbuf.cc:97:execute$114: 1'0 -> $auto$wreduce.cc:513:run$71 [2]
+Add gate.tester1/$auto$insbuf.cc:97:execute$115: 1'0 -> $auto$wreduce.cc:513:run$71 [3]
+Add gate.tester1/$auto$insbuf.cc:97:execute$116: 1'0 -> $auto$wreduce.cc:513:run$71 [4]
+Add gate.tester1/$auto$insbuf.cc:97:execute$117: 1'0 -> $auto$wreduce.cc:513:run$71 [5]
+Add gate.tester1/$auto$insbuf.cc:97:execute$118: 1'0 -> $auto$wreduce.cc:513:run$71 [6]
+Add gate.tester1/$auto$insbuf.cc:97:execute$119: 1'0 -> $auto$wreduce.cc:513:run$71 [7]
+Add gate.tester1/$auto$insbuf.cc:97:execute$120: 1'0 -> $auto$wreduce.cc:513:run$71 [8]
+Add gate.tester1/$auto$insbuf.cc:97:execute$121: 1'0 -> $auto$wreduce.cc:513:run$71 [9]
+Add gate.tester1/$auto$insbuf.cc:97:execute$122: 1'0 -> $auto$wreduce.cc:513:run$71 [10]
+Add gate.tester1/$auto$insbuf.cc:97:execute$123: 1'0 -> $auto$wreduce.cc:513:run$71 [11]
+Add gate.tester1/$auto$insbuf.cc:97:execute$124: 1'0 -> $auto$wreduce.cc:513:run$71 [12]
+Add gate.tester1/$auto$insbuf.cc:97:execute$125: 1'0 -> $auto$wreduce.cc:513:run$71 [13]
+Add gate.tester1/$auto$insbuf.cc:97:execute$126: 1'0 -> $auto$wreduce.cc:513:run$71 [14]
+Add gate.tester1/$auto$insbuf.cc:97:execute$127: 1'0 -> $auto$wreduce.cc:513:run$71 [15]
+Add gate.tester1/$auto$insbuf.cc:97:execute$128: 1'0 -> $auto$wreduce.cc:513:run$71 [16]
+Add gate.tester1/$auto$insbuf.cc:97:execute$129: 1'0 -> $auto$wreduce.cc:513:run$71 [17]
+Add gate.tester1/$auto$insbuf.cc:97:execute$130: 1'0 -> $auto$wreduce.cc:513:run$71 [18]
+Add gate.tester1/$auto$insbuf.cc:97:execute$131: 1'0 -> $auto$wreduce.cc:513:run$71 [19]
+Add gate.tester1/$auto$insbuf.cc:97:execute$132: 1'0 -> $auto$wreduce.cc:513:run$71 [20]
+Add gate.tester1/$auto$insbuf.cc:97:execute$133: 1'0 -> $auto$wreduce.cc:513:run$71 [21]
+Add gate.tester1/$auto$insbuf.cc:97:execute$134: 1'0 -> $auto$wreduce.cc:513:run$71 [22]
+Add gate.tester1/$auto$insbuf.cc:97:execute$135: 1'0 -> $auto$wreduce.cc:513:run$71 [23]
+Add gate.tester1/$auto$insbuf.cc:97:execute$136: 1'0 -> $auto$wreduce.cc:513:run$71 [24]
+Add gate.tester1/$auto$insbuf.cc:97:execute$137: 1'0 -> $auto$wreduce.cc:513:run$71 [25]
+Add gate.tester1/$auto$insbuf.cc:97:execute$138: 1'0 -> $auto$wreduce.cc:513:run$71 [26]
+Add gate.tester1/$auto$insbuf.cc:97:execute$139: 1'0 -> $auto$wreduce.cc:513:run$71 [27]
+Add gate.tester1/$auto$insbuf.cc:97:execute$140: 1'0 -> $auto$wreduce.cc:513:run$71 [28]
+Add gate.tester1/$auto$insbuf.cc:97:execute$141: 1'0 -> $auto$wreduce.cc:513:run$71 [29]
+Add gate.tester1/$auto$insbuf.cc:97:execute$142: 1'0 -> $auto$wreduce.cc:513:run$71 [30]
+Add gate.tester1/$auto$insbuf.cc:97:execute$143: 1'0 -> $auto$wreduce.cc:513:run$71 [31]
+Add gate.tester1/$auto$insbuf.cc:97:execute$144: $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [7]
+Add gate.tester1/$auto$insbuf.cc:97:execute$145: $sub$rtl/candidates/candidate_030.sv:37$9_Y [7] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [8]
+Add gate.tester1/$auto$insbuf.cc:97:execute$146: $sub$rtl/candidates/candidate_030.sv:37$9_Y [8] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [9]
+Add gate.tester1/$auto$insbuf.cc:97:execute$147: $sub$rtl/candidates/candidate_030.sv:37$9_Y [9] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [10]
+Add gate.tester1/$auto$insbuf.cc:97:execute$148: $sub$rtl/candidates/candidate_030.sv:37$9_Y [10] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [11]
+Add gate.tester1/$auto$insbuf.cc:97:execute$149: $sub$rtl/candidates/candidate_030.sv:37$9_Y [11] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [12]
+Add gate.tester1/$auto$insbuf.cc:97:execute$150: $sub$rtl/candidates/candidate_030.sv:37$9_Y [12] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [13]
+Add gate.tester1/$auto$insbuf.cc:97:execute$151: $sub$rtl/candidates/candidate_030.sv:37$9_Y [13] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [14]
+Add gate.tester1/$auto$insbuf.cc:97:execute$152: $sub$rtl/candidates/candidate_030.sv:37$9_Y [14] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [15]
+Add gate.tester1/$auto$insbuf.cc:97:execute$153: $sub$rtl/candidates/candidate_030.sv:37$9_Y [15] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [16]
+Add gate.tester1/$auto$insbuf.cc:97:execute$154: $sub$rtl/candidates/candidate_030.sv:37$9_Y [16] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [17]
+Add gate.tester1/$auto$insbuf.cc:97:execute$155: $sub$rtl/candidates/candidate_030.sv:37$9_Y [17] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [18]
+Add gate.tester1/$auto$insbuf.cc:97:execute$156: $sub$rtl/candidates/candidate_030.sv:37$9_Y [18] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [19]
+Add gate.tester1/$auto$insbuf.cc:97:execute$157: $sub$rtl/candidates/candidate_030.sv:37$9_Y [19] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [20]
+Add gate.tester1/$auto$insbuf.cc:97:execute$158: $sub$rtl/candidates/candidate_030.sv:37$9_Y [20] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [21]
+Add gate.tester1/$auto$insbuf.cc:97:execute$159: $sub$rtl/candidates/candidate_030.sv:37$9_Y [21] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [22]
+Add gate.tester1/$auto$insbuf.cc:97:execute$160: $sub$rtl/candidates/candidate_030.sv:37$9_Y [22] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [23]
+Add gate.tester1/$auto$insbuf.cc:97:execute$161: $sub$rtl/candidates/candidate_030.sv:37$9_Y [23] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [24]
+Add gate.tester1/$auto$insbuf.cc:97:execute$162: $sub$rtl/candidates/candidate_030.sv:37$9_Y [24] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [25]
+Add gate.tester1/$auto$insbuf.cc:97:execute$163: $sub$rtl/candidates/candidate_030.sv:37$9_Y [25] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [26]
+Add gate.tester1/$auto$insbuf.cc:97:execute$164: $sub$rtl/candidates/candidate_030.sv:37$9_Y [26] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [27]
+Add gate.tester1/$auto$insbuf.cc:97:execute$165: $sub$rtl/candidates/candidate_030.sv:37$9_Y [27] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [28]
+Add gate.tester1/$auto$insbuf.cc:97:execute$166: $sub$rtl/candidates/candidate_030.sv:37$9_Y [28] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [29]
+Add gate.tester1/$auto$insbuf.cc:97:execute$167: $sub$rtl/candidates/candidate_030.sv:37$9_Y [29] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [30]
+Add gate.tester1/$auto$insbuf.cc:97:execute$168: $sub$rtl/candidates/candidate_030.sv:37$9_Y [30] -> $sub$rtl/candidates/candidate_030.sv:37$9_Y [31]
+Add gate.tester1/$auto$insbuf.cc:97:execute$169: \x1_s1 [1] -> \x2_s1 [1]
+Add gate.tester1/$auto$insbuf.cc:97:execute$170: \x1_s1 [3] -> \x2_s1 [3]
+Add gate.tester1/$auto$insbuf.cc:97:execute$171: \x1_s1 [4] -> \x2_s1 [4]
+Add gate.tester1/$auto$insbuf.cc:97:execute$172: \x1_s1 [6] -> \x2_s1 [6]
+Add gate.tester1/$auto$insbuf.cc:97:execute$173: \x1_s1 [9] -> \x2_s1 [9]
+Add gate.tester1/$auto$insbuf.cc:97:execute$174: \x1_s1 [11] -> \x2_s1 [11]
+Add gate.tester1/$auto$insbuf.cc:97:execute$175: \x1_s1 [12] -> \x2_s1 [12]
+Add gate.tester1/$auto$insbuf.cc:97:execute$176: \x1_s1 [14] -> \x2_s1 [14]
+Add gate.tester1/$auto$insbuf.cc:97:execute$177: \x1_s1 [17] -> \x2_s1 [17]
+Add gate.tester1/$auto$insbuf.cc:97:execute$178: \x1_s1 [19] -> \x2_s1 [19]
+Add gate.tester1/$auto$insbuf.cc:97:execute$179: \x1_s1 [20] -> \x2_s1 [20]
+Add gate.tester1/$auto$insbuf.cc:97:execute$180: \x1_s1 [22] -> \x2_s1 [22]
+Add gate.tester1/$auto$insbuf.cc:97:execute$181: \x1_s1 [25] -> \x2_s1 [25]
+Add gate.tester1/$auto$insbuf.cc:97:execute$182: \x1_s1 [27] -> \x2_s1 [27]
+Add gate.tester1/$auto$insbuf.cc:97:execute$183: \x1_s1 [28] -> \x2_s1 [28]
+Add gate.tester1/$auto$insbuf.cc:97:execute$184: \x1_s1 [30] -> \x2_s1 [30]
+Rewrite gate.tester1/$add$rtl/candidates/candidate_030.sv:30$4/A: { \x2_s1 [31] \x1_s1 [30] \x2_s1 [29] \x1_s1 [28:27] \x2_s1 [26] \x1_s1 [25] \x2_s1 [24:23] \x1_s1 [22] \x2_s1 [21] \x1_s1 [20:19] \x2_s1 [18] \x1_s1 [17] \x2_s1 [16:15] \x1_s1 [14] \x2_s1 [13] \x1_s1 [12:11] \x2_s1 [10] \x1_s1 [9] \x2_s1 [8:7] \x1_s1 [6] \x2_s1 [5] \x1_s1 [4:3] \x2_s1 [2] \x1_s1 [1] \x2_s1 [0] } -> \x2_s1
+Rewrite gate.tester1/$add$rtl/candidates/candidate_030.sv:33$7/B: { \x2_s1 [31] \x1_s1 [30] \x2_s1 [29] \x1_s1 [28:27] \x2_s1 [26] \x1_s1 [25] \x2_s1 [24:23] \x1_s1 [22] \x2_s1 [21] \x1_s1 [20:19] \x2_s1 [18] \x1_s1 [17] \x2_s1 [16:15] \x1_s1 [14] \x2_s1 [13] \x1_s1 [12:11] \x2_s1 [10] \x1_s1 [9] \x2_s1 [8:7] \x1_s1 [6] \x2_s1 [5] \x1_s1 [4:3] \x2_s1 [2] \x1_s1 [1] \x2_s1 [0] } -> \x2_s1
+Rewrite gate.tester1/$procmux$58/A: \x1_s1 -> { \x1_s1 [31] \x2_s1 [30] \x1_s1 [29] \x2_s1 [28:27] \x1_s1 [26] \x2_s1 [25] \x1_s1 [24:23] \x2_s1 [22] \x1_s1 [21] \x2_s1 [20:19] \x1_s1 [18] \x2_s1 [17] \x1_s1 [16:15] \x2_s1 [14] \x1_s1 [13] \x2_s1 [12:11] \x1_s1 [10] \x2_s1 [9] \x1_s1 [8:7] \x2_s1 [6] \x1_s1 [5] \x2_s1 [4:3] \x1_s1 [2] \x2_s1 [1] \x1_s1 [0] }
+Rewrite gate.tester1/$shr$rtl/candidates/candidate_030.sv:37$10/B: { $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6] $sub$rtl/candidates/candidate_030.sv:37$9_Y [6:0] } -> { $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [31] $sub$rtl/candidates/candidate_030.sv:37$9_Y [5:0] }
+Add gold.tester1/$auto$insbuf.cc:97:execute$185: 1'0 -> $auto$wreduce.cc:513:run$37 [1]
+Add gold.tester1/$auto$insbuf.cc:97:execute$186: 1'0 -> $auto$wreduce.cc:513:run$37 [2]
+Add gold.tester1/$auto$insbuf.cc:97:execute$187: 1'0 -> $auto$wreduce.cc:513:run$37 [3]
+Add gold.tester1/$auto$insbuf.cc:97:execute$188: 1'0 -> $auto$wreduce.cc:513:run$37 [4]
+Add gold.tester1/$auto$insbuf.cc:97:execute$189: 1'0 -> $auto$wreduce.cc:513:run$37 [5]
+Add gold.tester1/$auto$insbuf.cc:97:execute$190: 1'0 -> $auto$wreduce.cc:513:run$37 [6]
+Add gold.tester1/$auto$insbuf.cc:97:execute$191: 1'0 -> $auto$wreduce.cc:513:run$37 [7]
+Add gold.tester1/$auto$insbuf.cc:97:execute$192: 1'0 -> $auto$wreduce.cc:513:run$37 [8]
+Add gold.tester1/$auto$insbuf.cc:97:execute$193: 1'0 -> $auto$wreduce.cc:513:run$37 [9]
+Add gold.tester1/$auto$insbuf.cc:97:execute$194: 1'0 -> $auto$wreduce.cc:513:run$37 [10]
+Add gold.tester1/$auto$insbuf.cc:97:execute$195: 1'0 -> $auto$wreduce.cc:513:run$37 [11]
+Add gold.tester1/$auto$insbuf.cc:97:execute$196: 1'0 -> $auto$wreduce.cc:513:run$37 [12]
+Add gold.tester1/$auto$insbuf.cc:97:execute$197: 1'0 -> $auto$wreduce.cc:513:run$37 [13]
+Add gold.tester1/$auto$insbuf.cc:97:execute$198: 1'0 -> $auto$wreduce.cc:513:run$37 [14]
+Add gold.tester1/$auto$insbuf.cc:97:execute$199: 1'0 -> $auto$wreduce.cc:513:run$37 [15]
+Add gold.tester1/$auto$insbuf.cc:97:execute$200: 1'0 -> $auto$wreduce.cc:513:run$37 [16]
+Add gold.tester1/$auto$insbuf.cc:97:execute$201: 1'0 -> $auto$wreduce.cc:513:run$37 [17]
+Add gold.tester1/$auto$insbuf.cc:97:execute$202: 1'0 -> $auto$wreduce.cc:513:run$37 [18]
+Add gold.tester1/$auto$insbuf.cc:97:execute$203: 1'0 -> $auto$wreduce.cc:513:run$37 [19]
+Add gold.tester1/$auto$insbuf.cc:97:execute$204: 1'0 -> $auto$wreduce.cc:513:run$37 [20]
+Add gold.tester1/$auto$insbuf.cc:97:execute$205: 1'0 -> $auto$wreduce.cc:513:run$37 [21]
+Add gold.tester1/$auto$insbuf.cc:97:execute$206: 1'0 -> $auto$wreduce.cc:513:run$37 [22]
+Add gold.tester1/$auto$insbuf.cc:97:execute$207: 1'0 -> $auto$wreduce.cc:513:run$37 [23]
+Add gold.tester1/$auto$insbuf.cc:97:execute$208: 1'0 -> $auto$wreduce.cc:513:run$37 [24]
+Add gold.tester1/$auto$insbuf.cc:97:execute$209: 1'0 -> $auto$wreduce.cc:513:run$37 [25]
+Add gold.tester1/$auto$insbuf.cc:97:execute$210: 1'0 -> $auto$wreduce.cc:513:run$37 [26]
+Add gold.tester1/$auto$insbuf.cc:97:execute$211: 1'0 -> $auto$wreduce.cc:513:run$37 [27]
+Add gold.tester1/$auto$insbuf.cc:97:execute$212: 1'0 -> $auto$wreduce.cc:513:run$37 [28]
+Add gold.tester1/$auto$insbuf.cc:97:execute$213: 1'0 -> $auto$wreduce.cc:513:run$37 [29]
+Add gold.tester1/$auto$insbuf.cc:97:execute$214: 1'0 -> $auto$wreduce.cc:513:run$37 [30]
+Add gold.tester1/$auto$insbuf.cc:97:execute$215: 1'0 -> $auto$wreduce.cc:513:run$37 [31]
+Add gold.tester1/$auto$insbuf.cc:97:execute$216: $sub$rtl/testcases/tester1.sv:32$11_Y [6] -> $sub$rtl/testcases/tester1.sv:32$11_Y [7]
+Add gold.tester1/$auto$insbuf.cc:97:execute$217: $sub$rtl/testcases/tester1.sv:32$11_Y [7] -> $sub$rtl/testcases/tester1.sv:32$11_Y [8]
+Add gold.tester1/$auto$insbuf.cc:97:execute$218: $sub$rtl/testcases/tester1.sv:32$11_Y [8] -> $sub$rtl/testcases/tester1.sv:32$11_Y [9]
+Add gold.tester1/$auto$insbuf.cc:97:execute$219: $sub$rtl/testcases/tester1.sv:32$11_Y [9] -> $sub$rtl/testcases/tester1.sv:32$11_Y [10]
+Add gold.tester1/$auto$insbuf.cc:97:execute$220: $sub$rtl/testcases/tester1.sv:32$11_Y [10] -> $sub$rtl/testcases/tester1.sv:32$11_Y [11]
+Add gold.tester1/$auto$insbuf.cc:97:execute$221: $sub$rtl/testcases/tester1.sv:32$11_Y [11] -> $sub$rtl/testcases/tester1.sv:32$11_Y [12]
+Add gold.tester1/$auto$insbuf.cc:97:execute$222: $sub$rtl/testcases/tester1.sv:32$11_Y [12] -> $sub$rtl/testcases/tester1.sv:32$11_Y [13]
+Add gold.tester1/$auto$insbuf.cc:97:execute$223: $sub$rtl/testcases/tester1.sv:32$11_Y [13] -> $sub$rtl/testcases/tester1.sv:32$11_Y [14]
+Add gold.tester1/$auto$insbuf.cc:97:execute$224: $sub$rtl/testcases/tester1.sv:32$11_Y [14] -> $sub$rtl/testcases/tester1.sv:32$11_Y [15]
+Add gold.tester1/$auto$insbuf.cc:97:execute$225: $sub$rtl/testcases/tester1.sv:32$11_Y [15] -> $sub$rtl/testcases/tester1.sv:32$11_Y [16]
+Add gold.tester1/$auto$insbuf.cc:97:execute$226: $sub$rtl/testcases/tester1.sv:32$11_Y [16] -> $sub$rtl/testcases/tester1.sv:32$11_Y [17]
+Add gold.tester1/$auto$insbuf.cc:97:execute$227: $sub$rtl/testcases/tester1.sv:32$11_Y [17] -> $sub$rtl/testcases/tester1.sv:32$11_Y [18]
+Add gold.tester1/$auto$insbuf.cc:97:execute$228: $sub$rtl/testcases/tester1.sv:32$11_Y [18] -> $sub$rtl/testcases/tester1.sv:32$11_Y [19]
+Add gold.tester1/$auto$insbuf.cc:97:execute$229: $sub$rtl/testcases/tester1.sv:32$11_Y [19] -> $sub$rtl/testcases/tester1.sv:32$11_Y [20]
+Add gold.tester1/$auto$insbuf.cc:97:execute$230: $sub$rtl/testcases/tester1.sv:32$11_Y [20] -> $sub$rtl/testcases/tester1.sv:32$11_Y [21]
+Add gold.tester1/$auto$insbuf.cc:97:execute$231: $sub$rtl/testcases/tester1.sv:32$11_Y [21] -> $sub$rtl/testcases/tester1.sv:32$11_Y [22]
+Add gold.tester1/$auto$insbuf.cc:97:execute$232: $sub$rtl/testcases/tester1.sv:32$11_Y [22] -> $sub$rtl/testcases/tester1.sv:32$11_Y [23]
+Add gold.tester1/$auto$insbuf.cc:97:execute$233: $sub$rtl/testcases/tester1.sv:32$11_Y [23] -> $sub$rtl/testcases/tester1.sv:32$11_Y [24]
+Add gold.tester1/$auto$insbuf.cc:97:execute$234: $sub$rtl/testcases/tester1.sv:32$11_Y [24] -> $sub$rtl/testcases/tester1.sv:32$11_Y [25]
+Add gold.tester1/$auto$insbuf.cc:97:execute$235: $sub$rtl/testcases/tester1.sv:32$11_Y [25] -> $sub$rtl/testcases/tester1.sv:32$11_Y [26]
+Add gold.tester1/$auto$insbuf.cc:97:execute$236: $sub$rtl/testcases/tester1.sv:32$11_Y [26] -> $sub$rtl/testcases/tester1.sv:32$11_Y [27]
+Add gold.tester1/$auto$insbuf.cc:97:execute$237: $sub$rtl/testcases/tester1.sv:32$11_Y [27] -> $sub$rtl/testcases/tester1.sv:32$11_Y [28]
+Add gold.tester1/$auto$insbuf.cc:97:execute$238: $sub$rtl/testcases/tester1.sv:32$11_Y [28] -> $sub$rtl/testcases/tester1.sv:32$11_Y [29]
+Add gold.tester1/$auto$insbuf.cc:97:execute$239: $sub$rtl/testcases/tester1.sv:32$11_Y [29] -> $sub$rtl/testcases/tester1.sv:32$11_Y [30]
+Add gold.tester1/$auto$insbuf.cc:97:execute$240: $sub$rtl/testcases/tester1.sv:32$11_Y [30] -> $sub$rtl/testcases/tester1.sv:32$11_Y [31]
+Add gold.tester1/$auto$insbuf.cc:97:execute$241: \x1 [1] -> \x2 [1]
+Add gold.tester1/$auto$insbuf.cc:97:execute$242: \x1 [3] -> \x2 [3]
+Add gold.tester1/$auto$insbuf.cc:97:execute$243: \x1 [4] -> \x2 [4]
+Add gold.tester1/$auto$insbuf.cc:97:execute$244: \x1 [6] -> \x2 [6]
+Add gold.tester1/$auto$insbuf.cc:97:execute$245: \x1 [9] -> \x2 [9]
+Add gold.tester1/$auto$insbuf.cc:97:execute$246: \x1 [11] -> \x2 [11]
+Add gold.tester1/$auto$insbuf.cc:97:execute$247: \x1 [12] -> \x2 [12]
+Add gold.tester1/$auto$insbuf.cc:97:execute$248: \x1 [14] -> \x2 [14]
+Add gold.tester1/$auto$insbuf.cc:97:execute$249: \x1 [17] -> \x2 [17]
+Add gold.tester1/$auto$insbuf.cc:97:execute$250: \x1 [19] -> \x2 [19]
+Add gold.tester1/$auto$insbuf.cc:97:execute$251: \x1 [20] -> \x2 [20]
+Add gold.tester1/$auto$insbuf.cc:97:execute$252: \x1 [22] -> \x2 [22]
+Add gold.tester1/$auto$insbuf.cc:97:execute$253: \x1 [25] -> \x2 [25]
+Add gold.tester1/$auto$insbuf.cc:97:execute$254: \x1 [27] -> \x2 [27]
+Add gold.tester1/$auto$insbuf.cc:97:execute$255: \x1 [28] -> \x2 [28]
+Add gold.tester1/$auto$insbuf.cc:97:execute$256: \x1 [30] -> \x2 [30]
+Rewrite gold.tester1/$add$rtl/testcases/tester1.sv:21$4/A: { \x2 [31] \x1 [30] \x2 [29] \x1 [28:27] \x2 [26] \x1 [25] \x2 [24:23] \x1 [22] \x2 [21] \x1 [20:19] \x2 [18] \x1 [17] \x2 [16:15] \x1 [14] \x2 [13] \x1 [12:11] \x2 [10] \x1 [9] \x2 [8:7] \x1 [6] \x2 [5] \x1 [4:3] \x2 [2] \x1 [1] \x2 [0] } -> \x2
+Rewrite gold.tester1/$add$rtl/testcases/tester1.sv:27$9/B: { \x2 [31] \x1 [30] \x2 [29] \x1 [28:27] \x2 [26] \x1 [25] \x2 [24:23] \x1 [22] \x2 [21] \x1 [20:19] \x2 [18] \x1 [17] \x2 [16:15] \x1 [14] \x2 [13] \x1 [12:11] \x2 [10] \x1 [9] \x2 [8:7] \x1 [6] \x2 [5] \x1 [4:3] \x2 [2] \x1 [1] \x2 [0] } -> \x2
+Rewrite gold.tester1/$shr$rtl/testcases/tester1.sv:32$12/B: { $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6] $sub$rtl/testcases/tester1.sv:32$11_Y [6:0] } -> { $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [31] $sub$rtl/testcases/tester1.sv:32$11_Y [5:0] }
+Rewrite gold.tester1/$xor$rtl/testcases/tester1.sv:24$6/B: \x1 -> { \x1 [31] \x2 [30] \x1 [29] \x2 [28:27] \x1 [26] \x2 [25] \x1 [24:23] \x2 [22] \x1 [21] \x2 [20:19] \x1 [18] \x2 [17] \x1 [16:15] \x2 [14] \x1 [13] \x2 [12:11] \x1 [10] \x2 [9] \x1 [8:7] \x2 [6] \x1 [5] \x2 [4:3] \x1 [2] \x2 [1] \x1 [0] }
+
+3. Executing EQY PARTITION task.
+
+3.1. Processing module pair gold.tester1 / gate.tester1.
+
+3.1.1. Processing matched IDs for module tester1.
+
+3.1.2. Create fragment partitions for module tester1.
+Adding output bit \y [31] to partition 0.
+Adding output bit \y [30] to partition 0.
+Adding output bit \y [29] to partition 0.
+Adding output bit \y [28] to partition 0.
+Adding output bit \y [27] to partition 0.
+Adding output bit \y [26] to partition 0.
+Adding output bit \y [25] to partition 0.
+Adding output bit \y [24] to partition 0.
+Adding output bit \y [23] to partition 0.
+Adding output bit \y [22] to partition 0.
+Adding output bit \y [21] to partition 0.
+Adding output bit \y [20] to partition 0.
+Adding output bit \y [19] to partition 0.
+Adding output bit \y [18] to partition 0.
+Adding output bit \y [17] to partition 0.
+Adding output bit \y [16] to partition 0.
+Adding output bit \y [15] to partition 0.
+Adding output bit \y [14] to partition 0.
+Adding output bit \y [13] to partition 0.
+Adding output bit \y [12] to partition 0.
+Adding output bit \y [11] to partition 0.
+Adding output bit \y [10] to partition 0.
+Adding output bit \y [9] to partition 0.
+Adding output bit \y [8] to partition 0.
+Adding output bit \y [7] to partition 0.
+Adding output bit \y [6] to partition 0.
+Adding output bit \y [5] to partition 0.
+Adding output bit \y [4] to partition 0.
+Adding output bit \y [3] to partition 0.
+Adding output bit \y [2] to partition 0.
+Adding output bit \y [1] to partition 0.
+Adding output bit \y [0] to partition 0.
+
+Final list of fragment partitions:
+  0 \y [0] \y [1] \y [2] \y [3] \y [4] \y [5] \y [6] \y [7] \y [8] \y [9] \y [10] \y [11] \y [12] \y [13] \y [14] \y [15] \y [16] \y [17] \y [18] \y [19] \y [20] \y [21] \y [22] \y [23] \y [24] \y [25] \y [26] \y [27] \y [28] \y [29] \y [30] \y [31] <= \op [2] \op [1] \op [0] \rst \key [31] \key [30] \key [29] \key [28] \key [27] \key [26] \key [25] \key [24] \key [23] \key [22] \key [21] \key [20] \key [19] \key [18] \key [17] \key [16] \key [15] \key [14] \key [13] \key [12] \key [11] \key [10] \key [9] \key [8] \key [7] \key [6] \key [5] \key [4] \key [3] \key [2] \key [1] \key [0] \data [31] \data [30] \data [29] \data [28] \data [27] \data [26] \data [25] \data [24] \data [23] \data [22] \data [21] \data [20] \data [19] \data [18] \data [17] \data [16] \data [15] \data [14] \data [13] \data [12] \data [11] \data [10] \data [9] \data [8] \data [7] \data [6] \data [5] \data [4] \data [3] \data [2] \data [1] \data [0] \clk
+
+3.1.3. Execute partitioning commands for module tester1.
+
+Amending partitions:
+Execute queued amend rules.
+Find automatic amend rules.
+  Checking partition 0:
+    Found 0 po matches and 0 auto/pi matches.
+
+Assigning partition names:
+Automatically naming partition 0 'y' using a PO name: y
+
+Partition Summary:
+  Fragments:
+       0: \y
+  Partitions:
+       0: y
+  Fragment-Partition-Matrix:
+           0          
+           0
+       0   #  y
+  Legend for Fragment-Partition-Matrix:
+      #  .... partition is this single fragment
+      *  .... fragments merged into single partition
+      +  .... fragments amended to the partition
+      =  .... fragment is driving a partition input
+      -  .... fragment is driving an amended fragment
+      .  .... no relationship between fragment and partition
+      ,  .... unused fragment index (as result of grouping)
+
+3.1.4. Write partitions for module tester1.
+Adding output bit \y [31] to partition 1.
+Adding output bit \y [30] to partition 1.
+Adding output bit \y [29] to partition 1.
+Adding output bit \y [28] to partition 1.
+Adding output bit \y [27] to partition 1.
+Adding output bit \y [26] to partition 1.
+Adding output bit \y [25] to partition 1.
+Adding output bit \y [24] to partition 1.
+Adding output bit \y [23] to partition 1.
+Adding output bit \y [22] to partition 1.
+Adding output bit \y [21] to partition 1.
+Adding output bit \y [20] to partition 1.
+Adding output bit \y [19] to partition 1.
+Adding output bit \y [18] to partition 1.
+Adding output bit \y [17] to partition 1.
+Adding output bit \y [16] to partition 1.
+Adding output bit \y [15] to partition 1.
+Adding output bit \y [14] to partition 1.
+Adding output bit \y [13] to partition 1.
+Adding output bit \y [12] to partition 1.
+Adding output bit \y [11] to partition 1.
+Adding output bit \y [10] to partition 1.
+Adding output bit \y [9] to partition 1.
+Adding output bit \y [8] to partition 1.
+Adding output bit \y [7] to partition 1.
+Adding output bit \y [6] to partition 1.
+Adding output bit \y [5] to partition 1.
+Adding output bit \y [4] to partition 1.
+Adding output bit \y [3] to partition 1.
+Adding output bit \y [2] to partition 1.
+Adding output bit \y [1] to partition 1.
+Adding output bit \y [0] to partition 1.
+Adding non-output bit \rst to partition 1.
+Adding non-output bit \op [2] to partition 1.
+Adding non-output bit \op [1] to partition 1.
+Adding non-output bit \op [0] to partition 1.
+Adding non-output bit \key [31] to partition 1.
+Adding non-output bit \key [30] to partition 1.
+Adding non-output bit \key [29] to partition 1.
+Adding non-output bit \key [28] to partition 1.
+Adding non-output bit \key [27] to partition 1.
+Adding non-output bit \key [26] to partition 1.
+Adding non-output bit \key [25] to partition 1.
+Adding non-output bit \key [24] to partition 1.
+Adding non-output bit \key [23] to partition 1.
+Adding non-output bit \key [22] to partition 1.
+Adding non-output bit \key [21] to partition 1.
+Adding non-output bit \key [20] to partition 1.
+Adding non-output bit \key [19] to partition 1.
+Adding non-output bit \key [18] to partition 1.
+Adding non-output bit \key [17] to partition 1.
+Adding non-output bit \key [16] to partition 1.
+Adding non-output bit \key [15] to partition 1.
+Adding non-output bit \key [14] to partition 1.
+Adding non-output bit \key [13] to partition 1.
+Adding non-output bit \key [12] to partition 1.
+Adding non-output bit \key [11] to partition 1.
+Adding non-output bit \key [10] to partition 1.
+Adding non-output bit \key [9] to partition 1.
+Adding non-output bit \key [8] to partition 1.
+Adding non-output bit \key [7] to partition 1.
+Adding non-output bit \key [6] to partition 1.
+Adding non-output bit \key [5] to partition 1.
+Adding non-output bit \key [4] to partition 1.
+Adding non-output bit \key [3] to partition 1.
+Adding non-output bit \key [2] to partition 1.
+Adding non-output bit \key [1] to partition 1.
+Adding non-output bit \key [0] to partition 1.
+Adding non-output bit \data [31] to partition 1.
+Adding non-output bit \data [30] to partition 1.
+Adding non-output bit \data [29] to partition 1.
+Adding non-output bit \data [28] to partition 1.
+Adding non-output bit \data [27] to partition 1.
+Adding non-output bit \data [26] to partition 1.
+Adding non-output bit \data [25] to partition 1.
+Adding non-output bit \data [24] to partition 1.
+Adding non-output bit \data [23] to partition 1.
+Adding non-output bit \data [22] to partition 1.
+Adding non-output bit \data [21] to partition 1.
+Adding non-output bit \data [20] to partition 1.
+Adding non-output bit \data [19] to partition 1.
+Adding non-output bit \data [18] to partition 1.
+Adding non-output bit \data [17] to partition 1.
+Adding non-output bit \data [16] to partition 1.
+Adding non-output bit \data [15] to partition 1.
+Adding non-output bit \data [14] to partition 1.
+Adding non-output bit \data [13] to partition 1.
+Adding non-output bit \data [12] to partition 1.
+Adding non-output bit \data [11] to partition 1.
+Adding non-output bit \data [10] to partition 1.
+Adding non-output bit \data [9] to partition 1.
+Adding non-output bit \data [8] to partition 1.
+Adding non-output bit \data [7] to partition 1.
+Adding non-output bit \data [6] to partition 1.
+Adding non-output bit \data [5] to partition 1.
+Adding non-output bit \data [4] to partition 1.
+Adding non-output bit \data [3] to partition 1.
+Adding non-output bit \data [2] to partition 1.
+Adding non-output bit \data [1] to partition 1.
+Adding non-output bit \data [0] to partition 1.
+Adding non-output bit \clk to partition 1.
+Writing partition 0 as tester1.y.
+  partition pi bit 0: \op [2] <-> \op [2]
+  partition pi bit 1: \op [1] <-> \op [1]
+  partition pi bit 2: \op [0] <-> \op [0]
+  partition pi bit 3: \rst <-> \rst
+  partition pi bit 4: \key [31] <-> \key [31]
+  partition pi bit 5: \key [30] <-> \key [30]
+  partition pi bit 6: \key [29] <-> \key [29]
+  partition pi bit 7: \key [28] <-> \key [28]
+  partition pi bit 8: \key [27] <-> \key [27]
+  partition pi bit 9: \key [26] <-> \key [26]
+  partition pi bit 10: \key [25] <-> \key [25]
+  partition pi bit 11: \key [24] <-> \key [24]
+  partition pi bit 12: \key [23] <-> \key [23]
+  partition pi bit 13: \key [22] <-> \key [22]
+  partition pi bit 14: \key [21] <-> \key [21]
+  partition pi bit 15: \key [20] <-> \key [20]
+  partition pi bit 16: \key [19] <-> \key [19]
+  partition pi bit 17: \key [18] <-> \key [18]
+  partition pi bit 18: \key [17] <-> \key [17]
+  partition pi bit 19: \key [16] <-> \key [16]
+  partition pi bit 20: \key [15] <-> \key [15]
+  partition pi bit 21: \key [14] <-> \key [14]
+  partition pi bit 22: \key [13] <-> \key [13]
+  partition pi bit 23: \key [12] <-> \key [12]
+  partition pi bit 24: \key [11] <-> \key [11]
+  partition pi bit 25: \key [10] <-> \key [10]
+  partition pi bit 26: \key [9] <-> \key [9]
+  partition pi bit 27: \key [8] <-> \key [8]
+  partition pi bit 28: \key [7] <-> \key [7]
+  partition pi bit 29: \key [6] <-> \key [6]
+  partition pi bit 30: \key [5] <-> \key [5]
+  partition pi bit 31: \key [4] <-> \key [4]
+  partition pi bit 32: \key [3] <-> \key [3]
+  partition pi bit 33: \key [2] <-> \key [2]
+  partition pi bit 34: \key [1] <-> \key [1]
+  partition pi bit 35: \key [0] <-> \key [0]
+  partition pi bit 36: \data [31] <-> \data [31]
+  partition pi bit 37: \data [30] <-> \data [30]
+  partition pi bit 38: \data [29] <-> \data [29]
+  partition pi bit 39: \data [28] <-> \data [28]
+  partition pi bit 40: \data [27] <-> \data [27]
+  partition pi bit 41: \data [26] <-> \data [26]
+  partition pi bit 42: \data [25] <-> \data [25]
+  partition pi bit 43: \data [24] <-> \data [24]
+  partition pi bit 44: \data [23] <-> \data [23]
+  partition pi bit 45: \data [22] <-> \data [22]
+  partition pi bit 46: \data [21] <-> \data [21]
+  partition pi bit 47: \data [20] <-> \data [20]
+  partition pi bit 48: \data [19] <-> \data [19]
+  partition pi bit 49: \data [18] <-> \data [18]
+  partition pi bit 50: \data [17] <-> \data [17]
+  partition pi bit 51: \data [16] <-> \data [16]
+  partition pi bit 52: \data [15] <-> \data [15]
+  partition pi bit 53: \data [14] <-> \data [14]
+  partition pi bit 54: \data [13] <-> \data [13]
+  partition pi bit 55: \data [12] <-> \data [12]
+  partition pi bit 56: \data [11] <-> \data [11]
+  partition pi bit 57: \data [10] <-> \data [10]
+  partition pi bit 58: \data [9] <-> \data [9]
+  partition pi bit 59: \data [8] <-> \data [8]
+  partition pi bit 60: \data [7] <-> \data [7]
+  partition pi bit 61: \data [6] <-> \data [6]
+  partition pi bit 62: \data [5] <-> \data [5]
+  partition pi bit 63: \data [4] <-> \data [4]
+  partition pi bit 64: \data [3] <-> \data [3]
+  partition pi bit 65: \data [2] <-> \data [2]
+  partition pi bit 66: \data [1] <-> \data [1]
+  partition pi bit 67: \data [0] <-> \data [0]
+  partition pi bit 68: \clk <-> \clk
+  partition po bit 0: \y [0] <-> \y [0]
+  partition po bit 1: \y [1] <-> \y [1]
+  partition po bit 2: \y [2] <-> \y [2]
+  partition po bit 3: \y [3] <-> \y [3]
+  partition po bit 4: \y [4] <-> \y [4]
+  partition po bit 5: \y [5] <-> \y [5]
+  partition po bit 6: \y [6] <-> \y [6]
+  partition po bit 7: \y [7] <-> \y [7]
+  partition po bit 8: \y [8] <-> \y [8]
+  partition po bit 9: \y [9] <-> \y [9]
+  partition po bit 10: \y [10] <-> \y [10]
+  partition po bit 11: \y [11] <-> \y [11]
+  partition po bit 12: \y [12] <-> \y [12]
+  partition po bit 13: \y [13] <-> \y [13]
+  partition po bit 14: \y [14] <-> \y [14]
+  partition po bit 15: \y [15] <-> \y [15]
+  partition po bit 16: \y [16] <-> \y [16]
+  partition po bit 17: \y [17] <-> \y [17]
+  partition po bit 18: \y [18] <-> \y [18]
+  partition po bit 19: \y [19] <-> \y [19]
+  partition po bit 20: \y [20] <-> \y [20]
+  partition po bit 21: \y [21] <-> \y [21]
+  partition po bit 22: \y [22] <-> \y [22]
+  partition po bit 23: \y [23] <-> \y [23]
+  partition po bit 24: \y [24] <-> \y [24]
+  partition po bit 25: \y [25] <-> \y [25]
+  partition po bit 26: \y [26] <-> \y [26]
+  partition po bit 27: \y [27] <-> \y [27]
+  partition po bit 28: \y [28] <-> \y [28]
+  partition po bit 29: \y [29] <-> \y [29]
+  partition po bit 30: \y [30] <-> \y [30]
+  partition po bit 31: \y [31] <-> \y [31]
+
+3.1.5. Executing RTLIL backend.
+Output filename: partitions/tester1.y.il
+<suppressed ~13070 debug messages>
+
+3.1.6. Executing CHECK pass (checking for obvious problems).
+Checking module gate.tester1.y...
+Checking module gold.tester1.y...
+Found and reported 0 problems.
+
+Writing partition 1 as tester1.
+  partition pi bit 0: \op [2] <-> \op [2]
+  partition pi bit 1: \op [1] <-> \op [1]
+  partition pi bit 2: \op [0] <-> \op [0]
+  partition pi bit 3: \rst <-> \rst
+  partition pi bit 4: \key [31] <-> \key [31]
+  partition pi bit 5: \key [30] <-> \key [30]
+  partition pi bit 6: \key [29] <-> \key [29]
+  partition pi bit 7: \key [28] <-> \key [28]
+  partition pi bit 8: \key [27] <-> \key [27]
+  partition pi bit 9: \key [26] <-> \key [26]
+  partition pi bit 10: \key [25] <-> \key [25]
+  partition pi bit 11: \key [24] <-> \key [24]
+  partition pi bit 12: \key [23] <-> \key [23]
+  partition pi bit 13: \key [22] <-> \key [22]
+  partition pi bit 14: \key [21] <-> \key [21]
+  partition pi bit 15: \key [20] <-> \key [20]
+  partition pi bit 16: \key [19] <-> \key [19]
+  partition pi bit 17: \key [18] <-> \key [18]
+  partition pi bit 18: \key [17] <-> \key [17]
+  partition pi bit 19: \key [16] <-> \key [16]
+  partition pi bit 20: \key [15] <-> \key [15]
+  partition pi bit 21: \key [14] <-> \key [14]
+  partition pi bit 22: \key [13] <-> \key [13]
+  partition pi bit 23: \key [12] <-> \key [12]
+  partition pi bit 24: \key [11] <-> \key [11]
+  partition pi bit 25: \key [10] <-> \key [10]
+  partition pi bit 26: \key [9] <-> \key [9]
+  partition pi bit 27: \key [8] <-> \key [8]
+  partition pi bit 28: \key [7] <-> \key [7]
+  partition pi bit 29: \key [6] <-> \key [6]
+  partition pi bit 30: \key [5] <-> \key [5]
+  partition pi bit 31: \key [4] <-> \key [4]
+  partition pi bit 32: \key [3] <-> \key [3]
+  partition pi bit 33: \key [2] <-> \key [2]
+  partition pi bit 34: \key [1] <-> \key [1]
+  partition pi bit 35: \key [0] <-> \key [0]
+  partition pi bit 36: \data [31] <-> \data [31]
+  partition pi bit 37: \data [30] <-> \data [30]
+  partition pi bit 38: \data [29] <-> \data [29]
+  partition pi bit 39: \data [28] <-> \data [28]
+  partition pi bit 40: \data [27] <-> \data [27]
+  partition pi bit 41: \data [26] <-> \data [26]
+  partition pi bit 42: \data [25] <-> \data [25]
+  partition pi bit 43: \data [24] <-> \data [24]
+  partition pi bit 44: \data [23] <-> \data [23]
+  partition pi bit 45: \data [22] <-> \data [22]
+  partition pi bit 46: \data [21] <-> \data [21]
+  partition pi bit 47: \data [20] <-> \data [20]
+  partition pi bit 48: \data [19] <-> \data [19]
+  partition pi bit 49: \data [18] <-> \data [18]
+  partition pi bit 50: \data [17] <-> \data [17]
+  partition pi bit 51: \data [16] <-> \data [16]
+  partition pi bit 52: \data [15] <-> \data [15]
+  partition pi bit 53: \data [14] <-> \data [14]
+  partition pi bit 54: \data [13] <-> \data [13]
+  partition pi bit 55: \data [12] <-> \data [12]
+  partition pi bit 56: \data [11] <-> \data [11]
+  partition pi bit 57: \data [10] <-> \data [10]
+  partition pi bit 58: \data [9] <-> \data [9]
+  partition pi bit 59: \data [8] <-> \data [8]
+  partition pi bit 60: \data [7] <-> \data [7]
+  partition pi bit 61: \data [6] <-> \data [6]
+  partition pi bit 62: \data [5] <-> \data [5]
+  partition pi bit 63: \data [4] <-> \data [4]
+  partition pi bit 64: \data [3] <-> \data [3]
+  partition pi bit 65: \data [2] <-> \data [2]
+  partition pi bit 66: \data [1] <-> \data [1]
+  partition pi bit 67: \data [0] <-> \data [0]
+  partition pi bit 68: \clk <-> \clk
+  partition po bit 0: \y [0] <-> \y [0]
+  partition po bit 1: \y [1] <-> \y [1]
+  partition po bit 2: \y [2] <-> \y [2]
+  partition po bit 3: \y [3] <-> \y [3]
+  partition po bit 4: \y [4] <-> \y [4]
+  partition po bit 5: \y [5] <-> \y [5]
+  partition po bit 6: \y [6] <-> \y [6]
+  partition po bit 7: \y [7] <-> \y [7]
+  partition po bit 8: \y [8] <-> \y [8]
+  partition po bit 9: \y [9] <-> \y [9]
+  partition po bit 10: \y [10] <-> \y [10]
+  partition po bit 11: \y [11] <-> \y [11]
+  partition po bit 12: \y [12] <-> \y [12]
+  partition po bit 13: \y [13] <-> \y [13]
+  partition po bit 14: \y [14] <-> \y [14]
+  partition po bit 15: \y [15] <-> \y [15]
+  partition po bit 16: \y [16] <-> \y [16]
+  partition po bit 17: \y [17] <-> \y [17]
+  partition po bit 18: \y [18] <-> \y [18]
+  partition po bit 19: \y [19] <-> \y [19]
+  partition po bit 20: \y [20] <-> \y [20]
+  partition po bit 21: \y [21] <-> \y [21]
+  partition po bit 22: \y [22] <-> \y [22]
+  partition po bit 23: \y [23] <-> \y [23]
+  partition po bit 24: \y [24] <-> \y [24]
+  partition po bit 25: \y [25] <-> \y [25]
+  partition po bit 26: \y [26] <-> \y [26]
+  partition po bit 27: \y [27] <-> \y [27]
+  partition po bit 28: \y [28] <-> \y [28]
+  partition po bit 29: \y [29] <-> \y [29]
+  partition po bit 30: \y [30] <-> \y [30]
+  partition po bit 31: \y [31] <-> \y [31]
+
+3.1.7. Executing RTLIL backend.
+Output filename: modules/tester1.il
+<suppressed ~2538 debug messages>
+
+End of script. Logfile hash: 05d38cefc3, time: 0.03s, user: 0.02s, system: 0.02s, MEM: 23.74 MB peak
+Yosys 0.68+132 (git sha1 13b43f8c8, Release, GNU /usr/bin/c++ 13.3.0)
+Time spent: 71% 1x eqy_partition (0 sec), 13% 1x check (0 sec), ...
