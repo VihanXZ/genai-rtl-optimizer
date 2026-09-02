@@ -48,6 +48,16 @@ def format_stage_breakdown(stages: list) -> str:
     return "\n".join(lines)
 
 
+
+def extract_code(text: str) -> str:
+    match = re.search(r'```(?:systemverilog|verilog|sv)\n(.*?)\n```', text, re.DOTALL | re.IGNORECASE)
+    if match:
+        return match.group(1)
+    match = re.search(r'```\n(.*?)\n```', text, re.DOTALL)
+    if match:
+        return match.group(1)
+    return text.strip()
+
 def extract_latency_delta(candidate_sv: str) -> int:
     match = re.search(r"LATENCY_DELTA_CYCLES:\s*(-?\d+)", candidate_sv)
     if not match:
@@ -70,6 +80,8 @@ def main():
     parser.add_argument("--rtl-source", required=True)
     parser.add_argument("--module-name", required=True)
     parser.add_argument("--transformation", default="pipelining", help="pipelining or retiming")
+    parser.add_argument("--previous-error", default=None, help="The EQY error string from a previous failed attempt")
+    parser.add_argument("--previous-candidate", default=None, help="The file path of the candidate that failed EQY")
     args = parser.parse_args()
 
     timing_report_path = REPO_ROOT / args.timing_report
@@ -88,8 +100,16 @@ def main():
     path_delay_ns = worst["stages"][-1]["arrival_ns"] if worst.get("stages") else None
     stage_breakdown = format_stage_breakdown(worst.get("stages", []))
 
+    prev_candidate_code = None
+    if args.previous_candidate:
+        prev_cand_path = Path(args.previous_candidate)
+        if prev_cand_path.exists():
+            prev_candidate_code = prev_cand_path.read_text()
+
     prompt = load_prompt(
         args.transformation,
+        previous_error=args.previous_error,
+        previous_candidate=prev_candidate_code,
         rtl_source=rtl_source,
         path_delay_ns=path_delay_ns,
         slack_ns=worst["slack_ns"],
@@ -101,12 +121,13 @@ def main():
 
     client = LLMClient()
     candidate_sv = client.generate(prompt)
+    candidate_sv_clean = extract_code(candidate_sv)
     latency_delta = extract_latency_delta(candidate_sv)
     estimated_critical_path_ns = extract_estimated_critical_path(candidate_sv)
 
     cand_id = next_candidate_id()
     out_path = CANDIDATES_DIR / f"{cand_id}.sv"
-    out_path.write_text(candidate_sv)
+    out_path.write_text(candidate_sv_clean)
 
     manifest = {
         "$schema": "candidate_manifest_v1",

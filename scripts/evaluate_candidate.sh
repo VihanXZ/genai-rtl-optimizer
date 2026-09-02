@@ -8,22 +8,26 @@ if [ -z "$1" ]; then
 fi
 
 CANDIDATE=$1
-BASENAME=$(basename "$CANDIDATE" .sv)
+MODULE_NAME=${2:-$(basename "$CANDIDATE")}
+MODULE_NAME="${MODULE_NAME%.*}"
+BASENAME=$(basename "$CANDIDATE")
+BASENAME="${BASENAME%.*}"
+
 echo "==========================================="
-echo " Evaluating Candidate: $BASENAME"
+echo " Evaluating Candidate: $BASENAME (Module: $MODULE_NAME)"
 echo "==========================================="
 
 # 1. Generate Yosys Script
 echo "[1/4] Generating Synthesis Script..."
 cat << EOF > synthesis/scripts/synth_${BASENAME}.ys
 read_verilog -sv $CANDIDATE
-hierarchy -top ${2:-${BASENAME}}
-synth -top ${2:-${BASENAME}}
+hierarchy -top $MODULE_NAME
+synth -top $MODULE_NAME
 dfflibmap -liberty libs/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib
 abc -liberty libs/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib
+stat -liberty libs/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib
 clean
 write_verilog synthesis/netlists/${BASENAME}_synth.v
-stat -liberty libs/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib
 EOF
 
 # 2. Run Yosys
@@ -35,7 +39,7 @@ echo "[3/4] Generating STA Script..."
 cat << EOF > sta/scripts/run_sta_${BASENAME}.tcl
 read_liberty libs/sky130/sky130_fd_sc_hd__tt_025C_1v80.lib
 read_verilog synthesis/netlists/${BASENAME}_synth.v
-link_design ${2:-${BASENAME}}
+link_design $MODULE_NAME
 read_sdc constraints/testcode_1.sdc
 report_checks -path_delay max -sort_by_slack
 report_wns

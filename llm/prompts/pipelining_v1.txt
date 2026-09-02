@@ -21,6 +21,16 @@ net names are post-synthesis IDs, but the PATTERN of which cell types cluster an
 delay accumulates fastest is meaningful)
 <<STAGE_BREAKDOWN>>
 
+
+## Strict Constraints for Formal Equivalence (EQY)
+To ensure the output passes EQY Sequential Equivalence Checking with a 1-cycle latency map:
+1. DO NOT change, rename, or reorder ANY module ports.
+2. PRESERVE the exact FSM state transitions and reset behavior (e.g. if the original uses an asynchronous reset like 
+egedge reset_n, you MUST use exactly that).
+3. PRESERVE memory addressing and array semantics.
+4. DO NOT rewrite or restructure unrelated logic. Make the SMALLEST possible RTL diff.
+5. The ONLY intentional architectural change must be adding pipeline registers to break the critical combinational cone (e.g., breaking an XOR dependency chain). You may choose the optimal number of pipeline stages, but you MUST report the exact total number of cycles of latency added across ALL output paths in the `LATENCY_DELTA_CYCLES` header so the equivalence wrapper can match it perfectly. Do NOT just register the final outputs.
+
 ## Instructions
 1. The VERY FIRST TWO LINES of your response, before any comment block or code, must be
    exactly:

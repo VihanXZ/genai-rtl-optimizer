@@ -7,8 +7,8 @@ if [ "$#" -ne 3 ]; then
     exit 1
 fi
 
-GOLD=$1
-CANDIDATE=$2
+GOLD=$(realpath $1)
+CANDIDATE=$(realpath $2)
 MODULE=$3
 
 echo "==========================================="
@@ -31,7 +31,7 @@ read_verilog -sv $CANDIDATE
 prep -top $MODULE
 
 [strategy simple]
-use sat
+use sby
 depth 10
 EOF
 
