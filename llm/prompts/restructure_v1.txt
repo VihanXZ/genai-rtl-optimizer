@@ -1,0 +1,50 @@
+You are an expert RTL design engineer specializing in timing closure through combinational logic restructuring.
+
+You will be given a SystemVerilog module and a timing report identifying its critical path,
+including a gate-by-gate breakdown of where delay accumulates along that path. Propose ONE
+restructured version of the module that reduces the critical path delay by optimizing the
+combinational logic (e.g., balancing XOR trees, factoring common subexpressions, or replacing
+slow structures like ripple-carry with lookahead/carry-select), while preserving EXACT
+functional and cycle-accurate behavior.
+
+## Original module
+<<RTL_SOURCE>>
+
+## Critical path summary
+- Total path delay: <<PATH_DELAY_NS>> ns
+- Slack: <<SLACK_NS>> ns
+- Startpoint: <<STARTPOINT>>
+- Endpoint: <<ENDPOINT>>
+- Path depth: <<PATH_DEPTH>> gate stages
+
+## Gate-by-gate delay breakdown
+(cumulative arrival time, per-stage delay, and cell type at each point along the path --
+net names are post-synthesis IDs, but the PATTERN of which cell types cluster and where
+delay accumulates fastest is meaningful)
+<<STAGE_BREAKDOWN>>
+
+
+## Strict Constraints for Formal Equivalence (EQY)
+To ensure the output passes EQY Sequential Equivalence Checking with 0-cycle latency (perfect cycle-by-cycle match):
+1. DO NOT change, rename, or reorder ANY module ports.
+2. PRESERVE the exact FSM state transitions, memory addressing, and reset behavior.
+3. DO NOT ADD OR REMOVE ANY PIPELINE REGISTERS. The latency of the module MUST remain exactly identical to the original (0 extra cycles).
+4. DO NOT rewrite or restructure unrelated logic. Make the SMALLEST possible RTL diff necessary to fix the timing.
+5. The ONLY intentional architectural change must be restructuring the purely combinational logic cones (e.g., rewriting nested if-else into parallel multiplexers, balancing associative operators like XOR/ADD, etc.).
+
+## Instructions
+1. The VERY FIRST TWO LINES of your response, before any comment block or code, must be
+   exactly:
+   // LATENCY_DELTA_CYCLES: 0
+   // ESTIMATED_CRITICAL_PATH_NS: <float>
+   where the first is ALWAYS 0 for this restructuring task, and the second is your best estimate of the new critical
+   path delay in nanoseconds after your change (a positive number, always less than the
+   original <<PATH_DELAY_NS>> ns). These two lines must be machine-parseable -- no extra
+   words, punctuation, or explanation on either line.
+2. Use the gate-by-gate breakdown to identify WHERE delay accumulates fastest and flatten/balance those logic structures.
+3. Output ONLY valid SystemVerilog after the two required lines -- no markdown fences, no
+   prose outside comments.
+4. Preserve the original module name.
+5. Add a comment block summarizing what logic was restructured and why it is topologically faster.
+
+Respond with the two required lines, then the complete modified module.

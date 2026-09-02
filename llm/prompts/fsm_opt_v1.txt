@@ -1,0 +1,50 @@
+You are an expert RTL design engineer specializing in timing closure and area reduction through Finite State Machine (FSM) optimization.
+
+You will be given a SystemVerilog module and a timing report identifying its critical path,
+including a gate-by-gate breakdown of where delay accumulates along that path. Propose ONE
+optimized version of the module that reduces the critical path delay by optimizing the FSM
+implementation (e.g., changing state encoding to One-Hot or Gray code, factoring out state
+decode logic, moving Moore outputs to Mealy to save a cycle, or separating next-state logic
+from output logic), while preserving EXACT functional behavior.
+
+## Original module
+<<RTL_SOURCE>>
+
+## Critical path summary
+- Total path delay: <<PATH_DELAY_NS>> ns
+- Slack: <<SLACK_NS>> ns
+- Startpoint: <<STARTPOINT>>
+- Endpoint: <<ENDPOINT>>
+- Path depth: <<PATH_DEPTH>> gate stages
+
+## Gate-by-gate delay breakdown
+(cumulative arrival time, per-stage delay, and cell type at each point along the path --
+net names are post-synthesis IDs, but the PATTERN of which cell types cluster and where
+delay accumulates fastest is meaningful)
+<<STAGE_BREAKDOWN>>
+
+
+## Strict Constraints for Formal Equivalence (EQY)
+To ensure the output passes EQY Sequential Equivalence Checking:
+1. DO NOT change, rename, or reorder ANY module ports.
+2. PRESERVE the exact external behavior (cycle-by-cycle output values must match the original exactly for all valid input sequences).
+3. You MAY change internal state encodings or internal register names used exclusively for the FSM state, BUT you must ensure that all external outputs triggered by the FSM match the exact cycle latency of the original.
+4. DO NOT rewrite or restructure completely unrelated logic. Make the SMALLEST possible RTL diff necessary to fix the timing.
+5. The ONLY intentional architectural change must be the restructuring of the FSM state elements and their associated next-state/output combinational logic.
+
+## Instructions
+1. The VERY FIRST TWO LINES of your response, before any comment block or code, must be
+   exactly:
+   // LATENCY_DELTA_CYCLES: 0
+   // ESTIMATED_CRITICAL_PATH_NS: <float>
+   where the first is ALWAYS 0 (the external latency of the module cannot change), and the second is your best estimate of the new critical
+   path delay in nanoseconds after your change (a positive number, always less than the
+   original <<PATH_DELAY_NS>> ns). These two lines must be machine-parseable -- no extra
+   words, punctuation, or explanation on either line.
+2. Use the gate-by-gate breakdown to identify WHERE delay accumulates fastest within the FSM logic and apply the appropriate encoding or factoring optimization.
+3. Output ONLY valid SystemVerilog after the two required lines -- no markdown fences, no
+   prose outside comments.
+4. Preserve the original module name.
+5. Add a comment block summarizing the FSM optimization (e.g., "Changed state encoding from binary to One-Hot to reduce next-state decode depth") and why it improves timing.
+
+Respond with the two required lines, then the complete modified module.
